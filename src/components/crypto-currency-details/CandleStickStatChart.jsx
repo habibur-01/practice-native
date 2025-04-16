@@ -48,14 +48,14 @@ const CandleStickStatChart = memo(() => {
       right: 0,
       top: 0,
       bottom: 0,
-      containLabel: true,
+      containLabel: false,
     },
     xAxis: {
       type: 'category',
       data: xAxisData,
       axisLine: {show: false},
       axisTick: {show: false},
-      axisLabel: {show: true},
+      axisLabel: {show: false},
     },
     yAxis: {
       type: 'value',
@@ -89,10 +89,14 @@ const CandleStickStatChart = memo(() => {
     <View
       style={{
         width: screenWidth,
-        height: 80,
+        height: responsiveHeight(6.5),
         backgroundColor: 'transparent',
       }}>
-      <Echarts option={option} height={80} width={screenWidth} />
+      <Echarts
+        option={option}
+        height={responsiveHeight(6.5)}
+        width={screenWidth}
+      />
     </View>
   );
 });

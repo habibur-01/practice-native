@@ -10,15 +10,13 @@ import {
   ViewComponent,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
-import Feather from 'react-native-vector-icons/Feather';
-import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {
+  responsiveFontSize,
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
@@ -27,12 +25,11 @@ import AssetsList from '../../components/markets/AssetsList';
 import TradableList from '../../components/markets/TradableList';
 import NewListed from '../../components/markets/NewListed';
 
-// import {responsiveHeight} from 'react-native-responsive-dimensions';
-
 const MarketScreen = memo(() => {
   const [expandGainers, setExpandGainers] = useState(false);
   const [expandMore, setExpandMore] = useState(false);
   const [isTabActive, setIsTabActive] = useState('assets');
+  const navigation = useNavigation();
   return (
     <LinearGradient
       colors={[
@@ -54,11 +51,11 @@ const MarketScreen = memo(() => {
 
       <View style={styles.topSection}>
         <TouchableOpacity
-          onPress={() => console.log('pressed')}
+          onPress={() => navigation.openDrawer()}
           style={styles.scannerBtn}>
           <MaterialCommunityIcons
-            name="credit-card-scan-outline"
-            size={26}
+            name="view-dashboard"
+            size={24}
             color="#A0A0A0"
           />
         </TouchableOpacity>
@@ -145,6 +142,11 @@ const MarketScreen = memo(() => {
               borderColor: '#7B7B7B',
               padding: 20,
               overflow: 'hidden',
+              shadowColor: '#373737',
+              shadowOffset: {width: 0, height: 6},
+              shadowOpacity: 0.2,
+              shadowRadius: 6.65,
+              elevation: 8,
             }}>
             <View
               style={{
@@ -374,7 +376,7 @@ const MarketScreen = memo(() => {
             <Text
               style={{
                 color: isTabActive === 'assets' ? '#fff' : '#E0E0E0',
-                fontSize: 15,
+                fontSize: responsiveFontSize(1.8),
               }}>
               ASSETS
             </Text>
@@ -398,7 +400,7 @@ const MarketScreen = memo(() => {
             <Text
               style={{
                 color: isTabActive === 'tradable' ? '#fff' : '#E0E0E0',
-                fontSize: 15,
+                fontSize: responsiveFontSize(1.8),
               }}>
               TRADABLE
             </Text>
@@ -422,7 +424,7 @@ const MarketScreen = memo(() => {
             <Text
               style={{
                 color: isTabActive === 'new' ? '#fff' : '#E0E0E0',
-                fontSize: 15,
+                fontSize: responsiveFontSize(1.8),
               }}>
               NEWLY LISTED
             </Text>

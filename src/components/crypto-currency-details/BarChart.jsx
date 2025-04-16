@@ -7,13 +7,15 @@ const BarChart = memo(() => {
   const screenWidth = Dimensions.get('window').width;
 
   const barChartData = [
-    10, 8, 28, 12, 13, 16, 29, 15, 10, 11, 9, 14, 26, 8, 6, 19, 13, 12, 10, 15,
-    14, 16, 20, 18, 11, 14, 13, 7, 9, 12,
+    29.171796, 26.835694, 35.065844, 30.418636, 30.849026, 32.541207, 36.025465,
+    31.710203, 29.171796, 29.602186, 28.741407, 31.279813, 34.635454, 26.835694,
+    25.564564, 33.832774, 30.849026, 30.418636, 29.171796, 31.710203, 31.279813,
+    32.541207, 33.832774, 32.972597, 29.602186, 31.279813, 30.849026, 26.405304,
+    28.741407, 30.418636,
   ];
 
   // Create matching xAxis labels
   const xAxisData = barChartData.map((_, i) => `${i + 1}:00`);
-  const yAxisData = [25.564564, 36.025465];
 
   const option = {
     backgroundColor: 'transparent',
@@ -23,10 +25,16 @@ const BarChart = memo(() => {
     },
     grid: {
       left: '8',
-      right: '22',
+      right: '28',
       bottom: '0',
-      top: '0',
+      top: '10',
       containLabel: true,
+    },
+    tooltip: {
+      show: false,
+      trigger: 'axis',
+      axisPointer: {type: 'cross'},
+      confine: true,
     },
 
     xAxis: {
@@ -40,13 +48,12 @@ const BarChart = memo(() => {
     },
     yAxis: {
       type: 'value',
-      data: yAxisData,
-      scale: true,
-      min: 0,
-      max: 36,
-      splitNumber: 1,
-      splitLine: {lineStyle: {color: 'transparent'}},
+      min: 25.564564,
+      max: 36.025465,
+      interval: 36, // only two labels: 0 and 36 by default
+      splitLine: {show: false},
       axisLine: {show: false},
+      axisTick: {show: false},
       axisLabel: {
         show: true,
         color: '#aaa',
@@ -56,12 +63,13 @@ const BarChart = memo(() => {
       },
       position: 'right',
     },
+
     series: [
       {
         name: 'Bars 1',
         type: 'bar',
         data: barChartData,
-        barWidth: 6,
+        barWidth: 5,
         barGap: '50%',
         itemStyle: {
           color: '#616161',
@@ -76,12 +84,12 @@ const BarChart = memo(() => {
     <View
       style={{
         width: screenWidth,
-        height: responsiveHeight(10),
+        height: responsiveHeight(7.5),
         backgroundColor: 'transparent',
       }}>
       <Echarts
         option={option}
-        height={responsiveHeight(10)}
+        height={responsiveHeight(7.5)}
         width={screenWidth}
       />
     </View>

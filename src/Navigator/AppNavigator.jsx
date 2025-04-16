@@ -21,6 +21,8 @@ import MarketScreen from '../screen/authenticated/MarketScreen';
 import LinearGradient from 'react-native-linear-gradient';
 import Svg, {Polygon} from 'react-native-svg';
 import CryptoCurrencyDetails from '../screen/authenticated/CryptoCurrencyDetails';
+import CustomDrawer from '../components/drawer/CustomDrawer';
+import Root from './Root';
 
 // Create navigator
 const Stack = createNativeStackNavigator();
@@ -39,53 +41,21 @@ const CustomAddButton = ({children, onPress}) => {
   );
 };
 
-// export const DrawerNavigator = () => {
-//   return (
-//     <Drawer.Navigator
-//       screenOptions={{
-//         drawerActiveTintColor: 'tomato',
-//         drawerInactiveTintColor: 'gray',
-//         drawerStyle: {
-//           backgroundColor: '#000',
-//           width: 250,
-//         },
-//         drawerLabelStyle: {
-//           fontSize: 16,
-//         },
-//         drawerItemStyle: {
-//           justifyContent: 'center',
-//           alignItems: 'center',
-//           paddingVertical: 10,
-//         },
-//       }}>
-//       <Drawer.Screen
-//         name="DASHBOARD"
-//         component={Dashboard}
-//         options={{
-//           drawerIcon: ({color, size}) => (
-//             <AntDesign name="home" size={size} color={color} />
-//           ),
-//         }}
-//       />
-//       <Drawer.Screen
-//         name="Profile"
-//         component={ProfileScreen}
-//         options={{
-//           drawerIcon: ({color, size}) => (
-//             <Feather name="user" size={size} color={color} />
-//           ),
-//         }}
-//       />
-//     </Drawer.Navigator>
-//   );
-// };
-
-// Stack Navigator
-export const HomeStack = () => {
+// Drawer Navigator
+export const DashboardNavigator = () => {
   return (
-    <Stack.Navigator>
-      {/* <Stack.Screen name="CRYPTO_DETAILS" component={CryptoCurrencyDetails} /> */}
-    </Stack.Navigator>
+    <Drawer.Navigator
+      drawerContent={props => <CustomDrawer {...props} />}
+      screenOptions={{
+        headerShown: false,
+        drawerStyle: {
+          borderTopRightRadius: 30,
+          borderBottomRightRadius: 30,
+        },
+      }}>
+      <Drawer.Screen name="DASHBOARD" component={Dashboard} />
+      <Drawer.Screen name="CRYPTO_DETAILS" component={CryptoCurrencyDetails} />
+    </Drawer.Navigator>
   );
 };
 
@@ -272,10 +242,7 @@ export const BottomTabs = () => {
 const AppNavigator = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="Tabs" component={BottomTabs} />
-        <Stack.Screen name="CRYPTO_DETAILS" component={CryptoCurrencyDetails} />
-      </Stack.Navigator>
+      <Root />
     </NavigationContainer>
   );
 };
@@ -285,7 +252,7 @@ const styles = StyleSheet.create({
     flex: 1,
     position: 'relative',
     backgroundColor: '#161616',
-    // backgroundColor: '#242424'
+    // backgroundColor: '#242424',
   },
   iconContainer: {
     position: 'absolute',

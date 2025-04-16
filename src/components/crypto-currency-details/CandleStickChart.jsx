@@ -1,10 +1,11 @@
 import React from 'react';
 import {View, ScrollView, Dimensions} from 'react-native';
+import {responsiveHeight} from 'react-native-responsive-dimensions';
 import Svg, {Line, Rect, Text} from 'react-native-svg';
 
 const Candlestick = () => {
   const width = Dimensions.get('window').width;
-  const height = 150;
+  const height = responsiveHeight(20);
   const data = [
     {open: 50, high: 80, low: 40, close: 70},
     {open: 70, high: 90, low: 60, close: 65},
@@ -25,7 +26,7 @@ const Candlestick = () => {
   ];
 
   const candleWidth = 8;
-  const labelWidth = 60;
+  const labelWidth = 65;
   const labelPadding = 10;
   const candleOffsetX = 10; // space before the first candle
 
@@ -87,8 +88,8 @@ const Candlestick = () => {
             x2={chartWidth}
             y1={midPriceY}
             y2={midPriceY}
-            stroke="#ccc"
-            strokeWidth="1"
+            stroke="#FFE4B2"
+            strokeWidth="0.8"
             strokeDasharray="4 2"
           />
 
@@ -96,17 +97,17 @@ const Candlestick = () => {
           <Rect
             x={chartWidth}
             y={midPriceY - 12}
-            rx="10"
-            ry="10"
+            rx="12"
+            ry="12"
             width={labelWidth}
-            height={24}
-            fill="#FCE6A4"
+            height={26}
+            fill="#FFE4B2"
             zIndex={1}
           />
           <Text
-            x={chartWidth + labelPadding + labelWidth / 2 - 5}
+            x={chartWidth + labelPadding + labelWidth / 2 - 10}
             y={midPriceY + 5}
-            fontSize="10"
+            fontSize="12"
             fill="#000"
             textAnchor="middle"
             fontWeight="bold">
@@ -116,7 +117,7 @@ const Candlestick = () => {
           {/* Candlesticks */}
           {data.map((item, index) => {
             const x = candleOffsetX + index * spacing;
-            const color = item.close >= item.open ? '#E7E089' : '#888';
+            const color = item.close >= item.open ? '#D9D4B3' : '#929292';
             const bodyTop = priceToY(Math.max(item.open, item.close));
             const bodyBottom = priceToY(Math.min(item.open, item.close));
             const bodyHeight = Math.abs(bodyBottom - bodyTop);
