@@ -15,7 +15,14 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Dashboard from '../screen/authenticated/Dashboard';
 import WalletScreen from '../screen/authenticated/WalletScreen';
 import ProfileScreen from '../screen/authenticated/ProfileScreen';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {BlurView} from '@react-native-community/blur';
 import MarketScreen from '../screen/authenticated/MarketScreen';
 import LinearGradient from 'react-native-linear-gradient';
@@ -23,23 +30,12 @@ import Svg, {Polygon} from 'react-native-svg';
 import CryptoCurrencyDetails from '../screen/authenticated/CryptoCurrencyDetails';
 import CustomDrawer from '../components/drawer/CustomDrawer';
 import Root from './Root';
+import {ThemeProvider} from '../theme/ThemeContext';
 
 // Create navigator
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
-// ************ ✅ Fixed Custom Plus Button ****************
-const CustomAddButton = ({children, onPress}) => {
-  return (
-    // Add return statement here
-    <TouchableOpacity
-      style={styles.plusButtonContainer}
-      onPress={onPress}
-      activeOpacity={0.8}>
-      <View style={styles.plusButton}>{children}</View>
-    </TouchableOpacity>
-  );
-};
 
 // Drawer Navigator
 export const DashboardNavigator = () => {
@@ -64,7 +60,7 @@ export const BottomTabs = () => {
   return (
     <View style={styles.bottomTabContainer}>
       <Tab.Navigator
-        // initialRouteName="HOME"
+        initialRouteName="WALLET"
         screenOptions={{
           tabBarActiveTintColor: '#fff',
           tabBarInactiveTintColor: '#B4B4B4',
@@ -82,13 +78,6 @@ export const BottomTabs = () => {
             margin: 'auto',
             elevation: 0,
           },
-
-          // tabBarItemStyle: {
-          //   width: 60,
-          //   height: 60, // 👈 Limits each tab width
-          //   justifyContent: 'center',
-          //   alignItems: 'center',
-          // },
         }}>
         <Tab.Screen
           name="MARKET"
@@ -152,27 +141,27 @@ export const BottomTabs = () => {
             headerShown: false,
             tabBarIcon: ({color}) => (
               <View style={{marginTop: -34}}>
-                <Svg width={60} height={60} viewBox="0 0 100 100">
-                  <Polygon
-                    points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5"
-                    fill="#666666"
-                    stroke="#7B7B7B"
-                    strokeWidth="1"
-                  />
+                <ImageBackground
+                  source={require('../assets/images/hexagon.png')}
+                  resizeMode="containe"
+                  style={{width: 56, height: 56}}>
                   <View
                     style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
                       justifyContent: 'center',
                       alignItems: 'center',
-                      height: '100%',
                     }}>
-                    {/* Moves only this icon up */}
                     <Image
                       source={require('../assets/images/card.png')}
                       resizeMode="contain"
                       style={{width: 28, height: 28}}
                     />
                   </View>
-                </Svg>
+                </ImageBackground>
               </View>
             ),
 
@@ -241,9 +230,11 @@ export const BottomTabs = () => {
 
 const AppNavigator = () => {
   return (
-    <NavigationContainer>
-      <Root />
-    </NavigationContainer>
+    <ThemeProvider>
+      <NavigationContainer>
+        <Root />
+      </NavigationContainer>
+    </ThemeProvider>
   );
 };
 
@@ -280,34 +271,8 @@ const styles = StyleSheet.create({
   blurContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    // width: 60,
-    // height: 60,
     borderRadius: 100,
     overflow: 'hidden',
-  },
-
-  plusButtonContainer: {
-    position: 'absolute',
-    top: -20, // Move the button higher
-    left: '40%',
-    transform: [{translateX: -30}], // Center horizontally
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 10,
-    borderRadius: '50%',
-    //   borderColor: "#202536",
-  },
-
-  plusButton: {
-    width: 80,
-    height: 60,
-    borderRadius: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.3,
-    shadowRadius: 3,
-    elevation: 5,
   },
 });
 

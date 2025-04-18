@@ -50,15 +50,19 @@ const MarketScreen = memo(() => {
       {/* Top section */}
 
       <View style={styles.topSection}>
-        <TouchableOpacity
-          onPress={() => navigation.openDrawer()}
+        <LinearGradient
+          colors={['#575757', '#5F5F5F', '#727272']}
+          start={{x: 0, y: 1}}
+          end={{x: 1, y: 0}}
           style={styles.scannerBtn}>
-          <MaterialCommunityIcons
-            name="view-dashboard"
-            size={24}
-            color="#A0A0A0"
-          />
-        </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.openDrawer()}>
+            <MaterialCommunityIcons
+              name="view-dashboard"
+              size={24}
+              color="#A0A0A0"
+            />
+          </TouchableOpacity>
+        </LinearGradient>
 
         <Text style={styles.topSectionTitle}>CRYFORGE</Text>
 
@@ -81,9 +85,10 @@ const MarketScreen = memo(() => {
         <View
           style={{
             marginTop: 30,
-            marginBottom: 12,
-            justifyContent: 'space-between',
+            marginBottom: 16,
             flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
           }}>
           <View>
             <Text style={{fontSize: 20, color: '#F6F6F6'}}>ASSETS</Text>
@@ -96,10 +101,10 @@ const MarketScreen = memo(() => {
                 position: 'relative',
               }}
               onPress={() => setExpandGainers(!expandGainers)}>
-              <Text style={{color: '#E0E0E0'}}>GAINERS</Text>
+              <Text style={{color: '#E0E0E0', fontSize: 12}}>GAINERS</Text>
               <MaterialIcons
                 name="keyboard-arrow-down"
-                size={20}
+                size={16}
                 color="#DADADA"
               />
             </TouchableOpacity>
@@ -131,16 +136,17 @@ const MarketScreen = memo(() => {
           contentContainerStyle={styles.cardWrapper} // Optional spacing
         >
           <LinearGradient
-            colors={['#666666', '#5F5F5F', '#464646']}
+            colors={['#666666', '#5F5F5F', '#3d3c3c']}
             start={{x: 0, y: 0}}
             end={{x: 0, y: 1}}
             style={{
               width: responsiveWidth(43),
-              height: responsiveHeight(19),
+              height: responsiveHeight(18),
               borderRadius: 20,
               borderWidth: 1,
               borderColor: '#7B7B7B',
-              padding: 20,
+              paddingHorizontal: 20,
+              paddingTop: 14,
               overflow: 'hidden',
               shadowColor: '#373737',
               shadowOffset: {width: 0, height: 6},
@@ -191,16 +197,17 @@ const MarketScreen = memo(() => {
             </View>
           </LinearGradient>
           <LinearGradient
-            colors={['#666666', '#5F5F5F', '#464646']}
+            colors={['#666666', '#5F5F5F', '#3d3c3c']}
             start={{x: 0, y: 0}}
             end={{x: 0, y: 1}}
             style={{
               width: responsiveWidth(43),
-              height: responsiveHeight(19),
+              height: responsiveHeight(18),
               borderRadius: 20,
               borderWidth: 1,
               borderColor: '#7B7B7B',
-              padding: 20,
+              paddingHorizontal: 20,
+              paddingTop: 14,
               overflow: 'hidden',
             }}>
             <View
@@ -246,16 +253,17 @@ const MarketScreen = memo(() => {
             </View>
           </LinearGradient>
           <LinearGradient
-            colors={['#666666', '#5F5F5F', '#464646']}
+            colors={['#666666', '#5F5F5F', '#3d3c3c']}
             start={{x: 0, y: 0}}
             end={{x: 0, y: 1}}
             style={{
               width: responsiveWidth(43),
-              height: responsiveHeight(19),
+              height: responsiveHeight(18),
               borderRadius: 20,
               borderWidth: 1,
               borderColor: '#7B7B7B',
-              padding: 20,
+              paddingHorizontal: 20,
+              paddingTop: 14,
               overflow: 'hidden',
             }}>
             <View
@@ -306,21 +314,25 @@ const MarketScreen = memo(() => {
         <View
           style={{
             marginTop: 30,
-            marginBottom: 16,
+            marginBottom: 18,
             justifyContent: 'space-between',
+            alignItems: 'center',
             flexDirection: 'row',
           }}>
           <View>
-            <Text style={{fontSize: 20, color: '#F6F6F6'}}>MARKETS</Text>
+            <Text style={{fontSize: 20, color: '#F6F6F6'}}>MARKET</Text>
           </View>
           <View>
             <TouchableOpacity
               style={{flexDirection: 'row', alignItems: 'center'}}
               onPress={() => setExpandMore(!expandMore)}>
-              <Text style={{color: '#E0E0E0'}}>LAST WEEK</Text>
+              <Text
+                style={{color: '#E0E0E0', fontSize: 12, alignSelf: 'baseline'}}>
+                LAST WEEK
+              </Text>
               <MaterialIcons
                 name="keyboard-arrow-down"
-                size={20}
+                size={18}
                 color="#DADADA"
               />
             </TouchableOpacity>
@@ -376,7 +388,7 @@ const MarketScreen = memo(() => {
             <Text
               style={{
                 color: isTabActive === 'assets' ? '#fff' : '#E0E0E0',
-                fontSize: responsiveFontSize(1.8),
+                fontSize: responsiveFontSize(1.7),
               }}>
               ASSETS
             </Text>
@@ -400,7 +412,7 @@ const MarketScreen = memo(() => {
             <Text
               style={{
                 color: isTabActive === 'tradable' ? '#fff' : '#E0E0E0',
-                fontSize: responsiveFontSize(1.8),
+                fontSize: responsiveFontSize(1.7),
               }}>
               TRADABLE
             </Text>
@@ -424,7 +436,7 @@ const MarketScreen = memo(() => {
             <Text
               style={{
                 color: isTabActive === 'new' ? '#fff' : '#E0E0E0',
-                fontSize: responsiveFontSize(1.8),
+                fontSize: responsiveFontSize(1.7),
               }}>
               NEWLY LISTED
             </Text>
@@ -492,7 +504,6 @@ const styles = StyleSheet.create({
   },
   scannerBtn: {
     position: 'relative',
-    backgroundColor: '#717171',
     height: 44,
     width: 44,
     borderRadius: 10,
@@ -508,7 +519,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#D3E3FD',
+    borderColor: '#A0A0A0',
   },
   tabContainer: {
     backgroundColor: '#484848',

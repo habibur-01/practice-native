@@ -55,7 +55,7 @@ const AssetsList = memo(() => {
         return (
           <LinearGradient
             key={item?.id}
-            colors={['#3f3f3f', '#444444', '#575757', '#5C5C5C']}
+            colors={['#3f3f3f', '#383737', '#575757', '#5C5C5C']}
             start={{x: 0, y: 0}}
             end={{x: 1, y: 0}}
             style={{
@@ -72,23 +72,24 @@ const AssetsList = memo(() => {
                 alignItems: 'center',
               }}
               onPress={() => navigation.navigate('CRYPTO_DETAILS', {item})}>
-              <View style={{flexDirection: 'row', gap: 10}}>
+              <View
+                style={{flexDirection: 'row', alignItems: 'center', gap: 10}}>
                 <Image
                   source={item?.icon}
                   resizeMode="cover"
-                  style={{width: 36, height: 36}}
+                  style={{width: 34, height: 34}}
                 />
                 <View>
-                  <Text style={{color: '#E8E8E8', fontSize: 15}}>
+                  <Text style={{color: '#E8E8E8', fontSize: 14}}>
                     {item?.symbol}
                   </Text>
-                  <Text style={{color: '#909090', fontSize: 14}}>
+                  <Text style={{color: '#909090', fontSize: 13}}>
                     {item?.name}
                   </Text>
                 </View>
               </View>
               <View>
-                <Candlestick width={134} height={42} />
+                <Candlestick width={134} height={38} />
               </View>
               <View>
                 <View

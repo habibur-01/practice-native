@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  useColorScheme,
   View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -17,13 +18,20 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import PurchaseList from '../../components/wallet/PurchaseList';
 import AllListItem from '../../components/wallet/AllListItem';
 import DepositList from '../../components/wallet/DepositList';
-import {responsiveHeight} from 'react-native-responsive-dimensions';
+import {
+  responsiveFontSize,
+  responsiveHeight,
+} from 'react-native-responsive-dimensions';
+import {useTheme} from '../../theme/ThemeContext';
 // import {responsiveHeight} from 'react-native-responsive-dimensions';
 
 const WalletScreen = () => {
   const navigation = useNavigation();
   const [activeTab, setActiveTab] = useState('cards');
   const [isTabActive, setIsTabActive] = useState('all');
+  const {theme} = useTheme();
+  console.log('🚀 ~ WalletScreen ~ theme:', theme);
+
   return (
     <LinearGradient
       colors={[
@@ -35,8 +43,8 @@ const WalletScreen = () => {
         // '#242424',
         // '#262626',
         '#1e1e1e',
-        '#0f0f0f',
-        '#0f0f0f',
+        '#262626',
+        '#161616',
       ]}
       start={{x: 0, y: 0}}
       end={{x: 0, y: 1}}
@@ -216,7 +224,7 @@ const WalletScreen = () => {
           <View style={styles.incomeText}>
             <Text style={{color: '#FFF', fontSize: 16}}>
               <FontAwesome name="euro" size={15} color="#fff" />
-              36 850.01
+              7200.48
             </Text>
             <Text style={{color: '#C6C4C3', fontSize: 13}}>WITHDRAWAL</Text>
           </View>
@@ -241,7 +249,7 @@ const WalletScreen = () => {
             <Text
               style={{
                 color: isTabActive === 'all' ? '#fff' : '#E0E0E0',
-                fontSize: 15,
+                fontSize: responsiveFontSize(1.6),
               }}>
               ALL
             </Text>
@@ -265,7 +273,7 @@ const WalletScreen = () => {
             <Text
               style={{
                 color: isTabActive === 'purchases' ? '#fff' : '#E0E0E0',
-                fontSize: 15,
+                fontSize: responsiveFontSize(1.6),
               }}>
               PURCHASES
             </Text>
@@ -289,7 +297,7 @@ const WalletScreen = () => {
             <Text
               style={{
                 color: isTabActive === 'deposit' ? '#fff' : '#E0E0E0',
-                fontSize: 15,
+                fontSize: responsiveFontSize(1.6),
               }}>
               DEPOSIT
             </Text>
@@ -419,7 +427,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   cardContainer: {
-    height: 220,
+    height: responsiveHeight(24),
     width: '100%',
     padding: 20,
     flexDirection: 'column',
@@ -430,7 +438,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 150,
-    // height: ,
+    // height: 60,
   },
   cardNumber: {
     color: '#fff',

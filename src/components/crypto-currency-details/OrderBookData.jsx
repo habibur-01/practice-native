@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 8,
+    // marginBottom: 8,
   },
   barContainer: {
     width: '50%',
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
     left: 0,
     top: 6,
     fontWeight: 'bold',
-    color: '#f6f6f6',
+    color: '#d4d4d4',
   },
 
   barWrapper: {
