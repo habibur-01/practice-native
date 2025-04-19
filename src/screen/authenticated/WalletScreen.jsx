@@ -1,12 +1,10 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {
-  Image,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  useColorScheme,
   View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -23,36 +21,37 @@ import {
   responsiveHeight,
 } from 'react-native-responsive-dimensions';
 import {useTheme} from '../../theme/ThemeContext';
+import CardSection from '../../components/wallet/CardSection';
 // import {responsiveHeight} from 'react-native-responsive-dimensions';
 
 const WalletScreen = () => {
   const navigation = useNavigation();
   const [activeTab, setActiveTab] = useState('cards');
   const [isTabActive, setIsTabActive] = useState('all');
-  const {theme} = useTheme();
-  console.log('🚀 ~ WalletScreen ~ theme:', theme);
+  const {themeMode, theme} = useTheme();
+  const darkMode = themeMode === 'dark' ? true : false;
+  console.log('🚀 ~ WalletScreen ~ darkMode:', darkMode);
 
   return (
     <LinearGradient
-      colors={[
-        '#585858',
-        '#4F4F4F',
-        // '#37393b',
-        // '#282828',
-        // '#2B2B2B',
-        // '#242424',
-        // '#262626',
-        '#1e1e1e',
-        '#262626',
-        '#161616',
-      ]}
+      colors={
+        darkMode
+          ? ['#585858', '#4F4F4F', '#1e1e1e', '#262626', '#161616']
+          : ['#f6f8fa', '#f6f8fa']
+      }
       start={{x: 0, y: 0}}
       end={{x: 0, y: 1}}
       style={styles.container}>
       <View style={styles.topSection}>
         <TouchableOpacity
           onPress={() => console.log('pressed')}
-          style={styles.scannerBtn}>
+          style={[
+            styles.scannerBtn,
+            {
+              backgroundColor: theme.backgroundLight,
+              borderColor: darkMode ? '#A0A0A0' : '#e5e7e8',
+            },
+          ]}>
           <MaterialCommunityIcons
             name="credit-card-scan-outline"
             size={26}
@@ -62,28 +61,49 @@ const WalletScreen = () => {
         <View style={styles.tabContainer}>
           <LinearGradient
             colors={
-              activeTab === 'tokens'
-                ? ['#616161', '#7A7A7A', '#7A7A7A']
-                : ['#484848', '#484847', '#484848']
+              darkMode
+                ? activeTab === 'tokens'
+                  ? ['#616161', '#7A7A7A', '#7A7A7A']
+                  : ['#484848', '#484847', '#484848']
+                : activeTab === 'tokens'
+                ? ['#000000', '#000000']
+                : ['#ffffff', '#ffffff']
             }
             start={{x: 0, y: 0}}
             end={{x: 1, y: 0}}
             style={[
               styles.tabBtn,
-              {borderTopLeftRadius: 16, borderBottomLeftRadius: 16},
+              {
+                borderTopLeftRadius: 16,
+                borderBottomLeftRadius: 16,
+                borderWidth: activeTab === 'tokens' ? 1 : 0,
+                borderColor: '#7B7B7B',
+              },
             ]}>
             <TouchableOpacity onPress={() => setActiveTab('tokens')}>
               <Text
-                style={{color: activeTab === 'tokens' ? '#fff' : '#A0A0A0'}}>
+                style={{
+                  color: darkMode
+                    ? activeTab === 'tokens'
+                      ? '#fff'
+                      : '#A0A0A0'
+                    : activeTab === 'tokens'
+                    ? '#fff'
+                    : '#000',
+                }}>
                 TOKENS
               </Text>
             </TouchableOpacity>
           </LinearGradient>
           <LinearGradient
             colors={
-              activeTab === 'cards'
-                ? ['#616161', '#7A7A7A', '#7A7A7A']
-                : ['#484848', '#484847', '#484848']
+              darkMode
+                ? activeTab === 'cards'
+                  ? ['#616161', '#7A7A7A', '#7A7A7A']
+                  : ['#484848', '#484847', '#484848']
+                : activeTab === 'cards'
+                ? ['#000000', '#000000']
+                : ['#ffffff', '#ffffff']
             }
             start={{x: 0, y: 0}}
             end={{x: 1, y: 0}}
@@ -92,150 +112,165 @@ const WalletScreen = () => {
               {
                 borderTopRightRadius: 16,
                 borderBottomRightRadius: 16,
+                borderWidth: activeTab === 'cards' ? 1 : 0,
+                borderColor: darkMode ? '#7B7B7B' : '#666666',
               },
             ]}>
             <TouchableOpacity onPress={() => setActiveTab('cards')}>
-              <Text style={{color: activeTab === 'cards' ? '#fff' : '#A0A0A0'}}>
+              <Text
+                style={{
+                  color: darkMode
+                    ? activeTab === 'cards'
+                      ? '#fff'
+                      : '#A0A0A0'
+                    : activeTab === 'cards'
+                    ? '#fff'
+                    : '#000',
+                }}>
                 CARDS
               </Text>
             </TouchableOpacity>
           </LinearGradient>
         </View>
         <LinearGradient
-          colors={['#5C5C5C', '#6B6764', '#8E7C70', '#948275']}
+          colors={
+            darkMode
+              ? ['#5C5C5C', '#6B6764', '#8E7C70', '#948275']
+              : ['#EFF3F4', '#EFF3F4']
+          }
           start={{x: 0, y: 1}}
           end={{x: 1, y: 0}}
           style={{borderRadius: 10}}>
           <TouchableOpacity
             onPress={() => console.log('notify')}
-            style={styles.notifyBtn}>
-            <Ionicons name="notifications-sharp" size={24} color="#CAB9AD" />
-            <View style={styles.notifyBadge}>
+            style={[
+              styles.notifyBtn,
+              {borderColor: darkMode ? '#A0A0A0' : '#e5e7e8'},
+            ]}>
+            <Ionicons
+              name="notifications-sharp"
+              size={24}
+              color={darkMode ? '#CAB9AD' : '#A0A0A0'}
+            />
+            <View
+              style={[
+                styles.notifyBadge,
+                {backgroundColor: darkMode ? '#EA955B' : '#6940D0'},
+              ]}>
               <Text style={styles.notifyBadgeText}>6</Text>
             </View>
           </TouchableOpacity>
         </LinearGradient>
       </View>
+
+      {/* Balance Section */}
       <View style={{marginVertical: 30}}>
         <View style={styles.amountContainer}>
-          <FontAwesome name="euro" size={22} color="#fff" />
-          <Text style={styles.amount}>5760.30</Text>
+          <FontAwesome
+            name="euro"
+            size={22}
+            color={darkMode ? '#fff' : '#000'}
+          />
+          <Text style={[styles.amount, {color: darkMode ? '#fff' : '#000'}]}>
+            5760.30
+          </Text>
           <Text style={styles.btcamount}>~ 0.087952 BTC</Text>
         </View>
-        <Text style={styles.availabeText}> AVAILABLE BALANCE</Text>
+        <Text
+          style={[
+            styles.availabeText,
+            {color: darkMode ? '#E0E0E0' : '#a0a0a0'},
+          ]}>
+          AVAILABLE BALANCE
+        </Text>
       </View>
 
       {/* Card section */}
       <View>
+        <CardSection />
+      </View>
+
+      {/* Income & Withdrawal Tab */}
+      <View style={{marginVertical: 20, flexDirection: 'row', gap: 10}}>
         <LinearGradient
-          colors={['#A9A9A7', '#A8A6A4', '#9E9C9A', '#939190']}
+          colors={darkMode ? ['#515353', '#4C4C4C'] : ['#FDFFFF', '#FDFFFF']}
           start={{x: 0, y: 0}}
           end={{x: 0, y: 1}}
-          style={styles.cardContainer}>
+          style={[
+            styles.incomeBtn,
+            {
+              borderColor: darkMode ? '#7B7B7B' : '#eef0f4',
+              elevation: darkMode ? 0 : 2,
+            },
+          ]}>
           <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}>
-            <Image
-              source={require('../../assets/images/cryforge.png')}
-              resizeMode="contain"
-              style={styles.image}
-            />
-            <Ionicons name="settings-sharp" size={20} color="#E1DFDE" />
+            style={[
+              styles.arrowIcon,
+              {backgroundColor: darkMode ? '#CCCCCC' : '#fff'},
+            ]}>
+            <Feather name="arrow-down-left" size={20} color="#4F4F4F" />
           </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}>
-            <Text style={styles.cardNumber}>5500</Text>
-            <View style={{flexDirection: 'row', gap: 0}}>
-              <Entypo name="dots-two-horizontal" size={22} color="#F8F6F4" />
-              <Entypo name="dots-two-horizontal" size={22} color="#F8F6F4" />
-            </View>
-            <View style={{flexDirection: 'row', gap: 0}}>
-              <Entypo name="dots-two-horizontal" size={22} color="#F8F6F4" />
-              <Entypo name="dots-two-horizontal" size={22} color="#F8F6F4" />
-            </View>
-            {/* <Text style={[styles.cardNumber]}>. . . .</Text> */}
-            <Text style={styles.cardNumber}>2024</Text>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}>
-            <View>
-              <Text style={styles.cardExpDate}>11 / 28</Text>
-              <Text style={styles.cardExpiration}>EXPIRATION DATE</Text>
-            </View>
-            <View>
-              <View
-                style={{flexDirection: 'row', gap: 8, alignItems: 'center'}}>
-                <Entypo
-                  name="dots-three-horizontal"
-                  size={22}
-                  color="#F8F6F4"
-                />
-                <FontAwesome name="lock" size={10} color="#F8F6F4" />
-              </View>
-              <Text style={{color: '#C6C4C3', fontSize: 14}}>CVV</Text>
-            </View>
-            <View>
-              <Image
-                source={require('../../assets/images/mastercard.png')}
-                resizeMode="contain"
-                style={{width: 60, height: 60}}
+          <View style={styles.incomeText}>
+            <Text style={{color: darkMode ? '#FFF' : '#010101', fontSize: 16}}>
+              <FontAwesome
+                name="euro"
+                size={15}
+                color={darkMode ? '#fff' : '#010101'}
               />
-            </View>
+              36 850.01
+            </Text>
+            <Text
+              style={{color: darkMode ? '#C6C4C3' : '#a0a0a0', fontSize: 13}}>
+              INCOME
+            </Text>
+          </View>
+        </LinearGradient>
+        <LinearGradient
+          colors={darkMode ? ['#515353', '#4C4C4C'] : ['#FDFFFF', '#FDFFFF']}
+          start={{x: 0, y: 0}}
+          end={{x: 0, y: 1}}
+          style={[
+            styles.incomeBtn,
+            {
+              borderColor: darkMode ? '#7B7B7B' : '#eef0f4',
+              elevation: darkMode ? 0 : 2,
+            },
+          ]}>
+          <View
+            style={[
+              styles.arrowIcon,
+              {backgroundColor: darkMode ? '#CCCCCC' : '#fff'},
+            ]}>
+            <Feather name="arrow-up-right" size={20} color="#4F4F4F" />
+          </View>
+          <View style={styles.incomeText}>
+            <Text style={{color: darkMode ? '#FFF' : '#010101', fontSize: 16}}>
+              <FontAwesome
+                name="euro"
+                size={15}
+                color={darkMode ? '#fff' : '#010101'}
+              />
+              7200.48
+            </Text>
+            <Text
+              style={{color: darkMode ? '#C6C4C3' : '#a0a0a0', fontSize: 13}}>
+              WITHDRAWAL
+            </Text>
           </View>
         </LinearGradient>
       </View>
 
-      <View style={{marginVertical: 20, flexDirection: 'row', gap: 10}}>
-        <LinearGradient
-          colors={['#515353', '#4C4C4C']}
-          start={{x: 0, y: 0}}
-          end={{x: 0, y: 1}}
-          style={styles.incomeBtn}>
-          <View style={styles.arrowIcon}>
-            <Feather name="arrow-down-left" size={20} color="#4F4F4F" />
-          </View>
-          <View style={styles.incomeText}>
-            <Text style={{color: '#FFF', fontSize: 16}}>
-              <FontAwesome name="euro" size={15} color="#fff" />
-              36 850.01
-            </Text>
-            <Text style={{color: '#C6C4C3', fontSize: 13}}>INCOME</Text>
-          </View>
-        </LinearGradient>
-        <LinearGradient
-          colors={['#515353', '#4C4C4C']}
-          start={{x: 0, y: 0}}
-          end={{x: 0, y: 1}}
-          style={styles.incomeBtn}>
-          <View style={styles.arrowIcon}>
-            <Feather name="arrow-up-right" size={20} color="#4F4F4F" />
-          </View>
-          <View style={styles.incomeText}>
-            <Text style={{color: '#FFF', fontSize: 16}}>
-              <FontAwesome name="euro" size={15} color="#fff" />
-              7200.48
-            </Text>
-            <Text style={{color: '#C6C4C3', fontSize: 13}}>WITHDRAWAL</Text>
-          </View>
-        </LinearGradient>
-      </View>
+      {/* Tab section */}
       <View style={{flexDirection: 'row'}}>
         <LinearGradient
           colors={
-            isTabActive === 'all'
-              ? ['#4E4E4E', '#5B5B5B', '#656565']
-              : ['transparent', 'transparent', 'transparent']
+            darkMode
+              ? isTabActive === 'all'
+                ? ['#4E4E4E', '#5B5B5B', '#656565']
+                : ['transparent', 'transparent', 'transparent']
+              : isTabActive === 'all'
+              ? ['#ffffff', '#ffffff']
+              : ['transparent', 'transparent']
           }
           start={{x: 0, y: 0}}
           end={{x: 1, y: 0}}
@@ -243,12 +278,19 @@ const WalletScreen = () => {
             styles.tab,
             {
               borderWidth: isTabActive === 'all' ? 1 : 0,
+              borderColor: darkMode ? '#7B7B7B' : '#d4d4d4',
             },
           ]}>
           <TouchableOpacity onPress={() => setIsTabActive('all')}>
             <Text
               style={{
-                color: isTabActive === 'all' ? '#fff' : '#E0E0E0',
+                color: darkMode
+                  ? isTabActive === 'all'
+                    ? '#fff'
+                    : '#E0E0E0'
+                  : isTabActive === 'all'
+                  ? '#010101'
+                  : '#353739',
                 fontSize: responsiveFontSize(1.6),
               }}>
               ALL
@@ -257,9 +299,13 @@ const WalletScreen = () => {
         </LinearGradient>
         <LinearGradient
           colors={
-            isTabActive === 'purchases'
-              ? ['#4E4E4E', '#5B5B5B', '#656565']
-              : ['transparent', 'transparent', 'transparent']
+            darkMode
+              ? isTabActive === 'purchases'
+                ? ['#4E4E4E', '#5B5B5B', '#656565']
+                : ['transparent', 'transparent', 'transparent']
+              : isTabActive === 'purchases'
+              ? ['#ffffff', '#ffffff']
+              : ['transparent', 'transparent']
           }
           start={{x: 0, y: 0}}
           end={{x: 1, y: 0}}
@@ -267,12 +313,19 @@ const WalletScreen = () => {
             styles.tab,
             {
               borderWidth: isTabActive === 'purchases' ? 1 : 0,
+              borderColor: darkMode ? '#7B7B7B' : '#d4d4d4',
             },
           ]}>
           <TouchableOpacity onPress={() => setIsTabActive('purchases')}>
             <Text
               style={{
-                color: isTabActive === 'purchases' ? '#fff' : '#E0E0E0',
+                color: darkMode
+                  ? isTabActive === 'purchases'
+                    ? '#fff'
+                    : '#E0E0E0'
+                  : isTabActive === 'purchases'
+                  ? '#010101'
+                  : '#353739',
                 fontSize: responsiveFontSize(1.6),
               }}>
               PURCHASES
@@ -281,9 +334,13 @@ const WalletScreen = () => {
         </LinearGradient>
         <LinearGradient
           colors={
-            isTabActive === 'deposit'
-              ? ['#4E4E4E', '#5B5B5B', '#656565']
-              : ['transparent', 'transparent', 'transparent']
+            darkMode
+              ? isTabActive === 'deposit'
+                ? ['#4E4E4E', '#5B5B5B', '#656565']
+                : ['transparent', 'transparent', 'transparent']
+              : isTabActive === 'deposit'
+              ? ['#ffffff', '#ffffff']
+              : ['transparent', 'transparent']
           }
           start={{x: 0, y: 0}}
           end={{x: 1, y: 0}}
@@ -291,12 +348,19 @@ const WalletScreen = () => {
             styles.tab,
             {
               borderWidth: isTabActive === 'deposit' ? 1 : 0,
+              borderColor: darkMode ? '#7B7B7B' : '#d4d4d4',
             },
           ]}>
           <TouchableOpacity onPress={() => setIsTabActive('deposit')}>
             <Text
               style={{
-                color: isTabActive === 'deposit' ? '#fff' : '#E0E0E0',
+                color: darkMode
+                  ? isTabActive === 'deposit'
+                    ? '#fff'
+                    : '#E0E0E0'
+                  : isTabActive === 'deposit'
+                  ? '#010101'
+                  : '#353739',
                 fontSize: responsiveFontSize(1.6),
               }}>
               DEPOSIT
@@ -322,15 +386,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
-  tab: {
-    paddingVertical: 8,
-    paddingHorizontal: 22,
-    borderRadius: 22,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#7B7B7B',
-  },
+
   incomeBtn: {
     paddingHorizontal: 16,
     paddingVertical: 12,
@@ -346,21 +402,20 @@ const styles = StyleSheet.create({
   arrowIcon: {
     width: 26,
     height: 26,
-    backgroundColor: '#CCCCCC',
+    // backgroundColor: '#CCCCCC',
     borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',
   },
   scannerBtn: {
     position: 'relative',
-    backgroundColor: '#717171',
+    // backgroundColor: '#717171',
     height: 44,
     width: 44,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#A0A0A0',
   },
   notifyBtn: {
     height: 44,
@@ -369,7 +424,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#A0A0A0',
+    // borderColor: '#A0A0A0',
   },
   tabContainer: {
     backgroundColor: '#484848',
@@ -393,7 +448,7 @@ const styles = StyleSheet.create({
   },
   notifyBadge: {
     position: 'absolute',
-    backgroundColor: '#EA955B',
+    // backgroundColor: '#EA955B',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 4,
@@ -412,7 +467,6 @@ const styles = StyleSheet.create({
   },
   amount: {
     fontSize: 24,
-    color: '#fff',
     marginLeft: 5,
   },
   btcamount: {
@@ -422,35 +476,16 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   availabeText: {
-    color: '#E0E0E0',
+    // color: '#E0E0E0',
     fontSize: 12,
     marginTop: 5,
   },
-  cardContainer: {
-    height: responsiveHeight(24),
-    width: '100%',
-    padding: 20,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    borderWidth: 1,
-    borderColor: '#D4D4D4',
-    borderRadius: 20,
-  },
-  image: {
-    width: 150,
-    // height: 60,
-  },
-  cardNumber: {
-    color: '#fff',
-    fontSize: 24,
-  },
-  cardExpDate: {
-    color: '#fff',
-    fontSize: 16,
-  },
-  cardExpiration: {
-    color: '#C6C4C3',
-    fontSize: 14,
+  tab: {
+    paddingVertical: 8,
+    paddingHorizontal: 22,
+    borderRadius: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

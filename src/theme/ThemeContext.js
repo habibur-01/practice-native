@@ -7,12 +7,12 @@ const ThemeContext = createContext();
 
 export const ThemeProvider = ({children}) => {
   const systemScheme = useColorScheme();
-  const [themeMode, setThemeMode] = useState(null);
+  const [themeMode, setThemeMode] = useState('dark');
 
   useEffect(() => {
     const loadTheme = async () => {
       const storedTheme = await AsyncStorage.getItem('APP_THEME');
-      setThemeMode(storedTheme || systemScheme);
+      setThemeMode(storedTheme || themeMode);
     };
     loadTheme();
   }, [systemScheme]);

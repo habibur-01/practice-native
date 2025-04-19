@@ -4,6 +4,7 @@ import Candlestick from './CandleSticks';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
+import {useTheme} from '../../theme/ThemeContext';
 const data = [
   {
     id: 1,
@@ -11,7 +12,8 @@ const data = [
     name: 'CHAINLINK',
     price: '18.67',
     change: '+6.81%',
-    icon: require('../../assets/icon/link.png'), // update if dynamic
+    lightIcon: require('../../assets/icon/link.png'),
+    darkIcon: require('../../assets/icon/link-dark.png'),
   },
   {
     id: 2,
@@ -19,7 +21,8 @@ const data = [
     name: 'TONCOIN',
     price: '18.67',
     change: '+6.81%',
-    icon: require('../../assets/icon/ton.png'), // update if dynamic
+    lightIcon: require('../../assets/icon/ton.png'),
+    darkIcon: require('../../assets/icon/ton-dark.png'),
   },
   {
     id: 3,
@@ -27,7 +30,8 @@ const data = [
     name: 'SOLANA',
     price: '18.67',
     change: '+6.81%',
-    icon: require('../../assets/icon/solana.png'), // update if dynamic
+    lightIcon: require('../../assets/icon/solana.png'),
+    darkIcon: require('../../assets/icon/solana-dark.png'),
   },
   {
     id: 4,
@@ -35,7 +39,8 @@ const data = [
     name: 'APTOS',
     price: '18.67',
     change: '+6.81%',
-    icon: require('../../assets/icon/apt.png'), // update if dynamic
+    lightIcon: require('../../assets/icon/apt.png'),
+    darkIcon: require('../../assets/icon/crypto-coin.png'),
   },
   {
     id: 5,
@@ -43,26 +48,34 @@ const data = [
     name: 'SHIBA INU',
     price: '18.67',
     change: '+6.81%',
-    icon: require('../../assets/icon/shib.png'), // update if dynamic
+    lightIcon: require('../../assets/icon/shib.png'),
+    darkIcon: require('../../assets/icon/shib-dark.png'),
   },
 ];
 
 const AssetsList = memo(() => {
   const navigation = useNavigation();
+  const {theme, themeMode} = useTheme();
+  const darkMode = themeMode === 'dark' ? true : false;
+
   return (
     <View>
       {data.map(item => {
         return (
           <LinearGradient
             key={item?.id}
-            colors={['#3f3f3f', '#383737', '#575757', '#5C5C5C']}
+            colors={
+              darkMode
+                ? ['#3f3f3f', '#383737', '#575757', '#5C5C5C']
+                : ['#F7F7F7', '#FFF']
+            }
             start={{x: 0, y: 0}}
             end={{x: 1, y: 0}}
             style={{
               padding: 10,
               borderRadius: 20,
               borderWidth: 1,
-              borderColor: '#7B7B7B',
+              borderColor: darkMode ? '#7B7B7B' : '#e8e9ea',
               marginBottom: 5,
             }}>
             <TouchableOpacity
@@ -75,12 +88,16 @@ const AssetsList = memo(() => {
               <View
                 style={{flexDirection: 'row', alignItems: 'center', gap: 10}}>
                 <Image
-                  source={item?.icon}
+                  source={darkMode ? item?.lightIcon : item?.darkIcon}
                   resizeMode="cover"
                   style={{width: 34, height: 34}}
                 />
                 <View>
-                  <Text style={{color: '#E8E8E8', fontSize: 14}}>
+                  <Text
+                    style={{
+                      color: darkMode ? '#E8E8E8' : '#010101',
+                      fontSize: 14,
+                    }}>
                     {item?.symbol}
                   </Text>
                   <Text style={{color: '#909090', fontSize: 13}}>
@@ -98,12 +115,24 @@ const AssetsList = memo(() => {
                     alignItems: 'center',
                     alignSelf: 'flex-end',
                   }}>
-                  <MaterialIcons name="euro" size={14} color="#F6F6F6" />
-                  <Text style={{color: '#F6F6F6', alignSelf: 'flex-end'}}>
+                  <MaterialIcons
+                    name="euro"
+                    size={14}
+                    color={darkMode ? '#F6F6F6' : '#010101'}
+                  />
+                  <Text
+                    style={{
+                      color: darkMode ? '#F6F6F6' : '#010101',
+                      alignSelf: 'flex-end',
+                    }}>
                     {item?.price}
                   </Text>
                 </View>
-                <Text style={{color: '#DAD6C3', alignSelf: 'flex-end'}}>
+                <Text
+                  style={{
+                    color: darkMode ? '#DAD6C3' : '#A0A0A0',
+                    alignSelf: 'flex-end',
+                  }}>
                   {item?.change}
                 </Text>
               </View>

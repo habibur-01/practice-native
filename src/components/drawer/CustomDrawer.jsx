@@ -5,6 +5,7 @@ import {
   DrawerItemList,
 } from '@react-navigation/drawer';
 // import TopProfileBalance from './TopProfileBalance';
+import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import DrawerMenuItems from './DrawerMenuItems';
 import {useTheme} from '../../theme/ThemeContext';
@@ -44,31 +45,37 @@ const CustomDrawer = props => {
       </View>
       <View
         style={{
-          backgroundColor: '#fff',
+          backgroundColor: '#424040',
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
           padding: 10,
           marginTop: 10,
-          marginHorizontal: 14,
+          marginHorizontal: 12,
           borderRadius: 10,
         }}>
         <View style={{flexDirection: 'row', alignItems: 'center', gap: 10}}>
           <View
             style={{
-              backgroundColor: '#ec4',
+              backgroundColor: 'rgba(94, 92, 92, 0.9)',
               width: 28,
               height: 28,
-              borderRadius: 4,
+              borderRadius: 5,
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-            <MaterialIcons name="dark-mode" size={20} color="black" />
+            {isEnabled ? (
+              <Entypo name="light-down" size={24} color="#fff" />
+            ) : (
+              <MaterialIcons name="dark-mode" size={18} color="#fff" />
+            )}
           </View>
-          <Text style={{color: theme.text}}>Dark Mode</Text>
+          <Text style={{color: '#fff'}}>
+            {isEnabled ? 'Light Mode' : 'Dark Mode'}
+          </Text>
         </View>
         <Switch
-          trackColor={{false: '#767577', true: '#fff'}}
+          trackColor={{false: 'gray', true: '#fff'}}
           thumbColor={isEnabled ? '#0081F1' : '#f4f3f4'}
           ios_backgroundColor="#3e3e3e"
           onValueChange={toggleSwitch}
@@ -83,7 +90,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // backgroundColor: '#202536',
-    backgroundColor: '#232323',
+    backgroundColor: '#4F4F4F',
     paddingVertical: 20,
 
     borderTopRightRadius: 30,
@@ -93,8 +100,9 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   userInfo: {
-    backgroundColor: '#202536',
+    backgroundColor: '#424040',
     marginHorizontal: 14,
+    marginBottom: 8,
     padding: 10,
     borderRadius: 10,
     flexDirection: 'row',

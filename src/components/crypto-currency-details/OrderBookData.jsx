@@ -115,7 +115,7 @@ const OrderBookChart = () => {
                   width: 80,
                   backgroundColor: '#373737',
                   borderWidth: 1,
-                  borderColor: '#d4d4d4',
+                  borderColor: '#666666',
                   position: 'absolute',
                   borderRadius: 5,
                   top: 0,

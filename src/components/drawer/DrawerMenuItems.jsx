@@ -142,7 +142,7 @@ export default function DrawerMenuItems() {
       ),
       subItems: [],
       onPress: () => {
-        navigation.navigate('NOTIFICATIONS');
+        navigation.navigate('WalletDuplicate');
       },
     },
     {
@@ -159,7 +159,7 @@ export default function DrawerMenuItems() {
         {
           title: 'Open Live Account',
           onPress: () => {
-            navigation.navigate('PROFILE');
+            navigation.navigate('MarketDuplicate');
           },
         },
         {
@@ -532,7 +532,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: responsiveWidth(3),
   },
   menuItem: {
-    backgroundColor: '#161616',
+    backgroundColor: '#424040',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

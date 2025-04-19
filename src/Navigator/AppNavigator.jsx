@@ -30,7 +30,9 @@ import Svg, {Polygon} from 'react-native-svg';
 import CryptoCurrencyDetails from '../screen/authenticated/CryptoCurrencyDetails';
 import CustomDrawer from '../components/drawer/CustomDrawer';
 import Root from './Root';
-import {ThemeProvider} from '../theme/ThemeContext';
+import {ThemeProvider, useTheme} from '../theme/ThemeContext';
+import WalletDuplicate from '../screen/authenticated/WalletDuplicate';
+import MarketDuplicate from '../screen/authenticated/MarketDuplicate';
 
 // Create navigator
 const Stack = createNativeStackNavigator();
@@ -51,14 +53,22 @@ export const DashboardNavigator = () => {
       }}>
       <Drawer.Screen name="DASHBOARD" component={Dashboard} />
       <Drawer.Screen name="CRYPTO_DETAILS" component={CryptoCurrencyDetails} />
+      <Drawer.Screen name="WalletDuplicate" component={WalletDuplicate} />
+      <Drawer.Screen name="MarketDuplicate" component={MarketDuplicate} />
     </Drawer.Navigator>
   );
 };
 
 // Bottom Tab Navigator
 export const BottomTabs = () => {
+  const {theme, themeMode} = useTheme();
+  const darkMode = themeMode === 'dark' ? true : false;
   return (
-    <View style={styles.bottomTabContainer}>
+    <View
+      style={[
+        styles.bottomTabContainer,
+        {backgroundColor: darkMode ? '#161616' : '#f6f8fa'},
+      ]}>
       <Tab.Navigator
         initialRouteName="WALLET"
         screenOptions={{
@@ -242,7 +252,7 @@ const styles = StyleSheet.create({
   bottomTabContainer: {
     flex: 1,
     position: 'relative',
-    backgroundColor: '#161616',
+    // backgroundColor: '#161616',
     // backgroundColor: '#242424',
   },
   iconContainer: {
