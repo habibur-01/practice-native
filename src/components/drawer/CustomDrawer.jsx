@@ -13,6 +13,7 @@ import {useTheme} from '../../theme/ThemeContext';
 const CustomDrawer = props => {
   const {theme, themeMode, setThemeMode} = useTheme();
   const [isEnabled, setIsEnabled] = useState(false);
+  const darkMode = themeMode === 'dark' ? true : false;
   const toggleSwitch = async () => {
     setIsEnabled(previousState => !previousState);
     const newTheme = themeMode === 'dark' ? 'light' : 'dark';
@@ -21,8 +22,16 @@ const CustomDrawer = props => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.userInfo}>
+    <View
+      style={[
+        styles.container,
+        {backgroundColor: darkMode ? '#4F4F4F' : '#fff'},
+      ]}>
+      <View
+        style={[
+          styles.userInfo,
+          {backgroundColor: darkMode ? '#424040' : '#eef0f4'},
+        ]}>
         <View>
           <Image
             source={require('../../assets/images/user.jpg')}
@@ -31,10 +40,15 @@ const CustomDrawer = props => {
           />
         </View>
         <View>
-          <Text style={{color: '#fff', fontSize: 18, fontWeight: 'bold'}}>
+          <Text
+            style={{
+              color: darkMode ? '#fff' : '#010101',
+              fontSize: 18,
+              fontWeight: 'bold',
+            }}>
             Alex Peterson
           </Text>
-          <Text style={{color: '#d4d4d4', fontSize: 14}}>
+          <Text style={{color: darkMode ? '#d4d4d4' : '#494949', fontSize: 14}}>
             alexpeter34@gmail.com
           </Text>
         </View>
@@ -45,7 +59,7 @@ const CustomDrawer = props => {
       </View>
       <View
         style={{
-          backgroundColor: '#424040',
+          backgroundColor: darkMode ? '#424040' : '#eef0f4',
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -57,7 +71,7 @@ const CustomDrawer = props => {
         <View style={{flexDirection: 'row', alignItems: 'center', gap: 10}}>
           <View
             style={{
-              backgroundColor: 'rgba(94, 92, 92, 0.9)',
+              backgroundColor: darkMode ? 'rgba(94, 92, 92, 0.9)' : '#d5dde2',
               width: 28,
               height: 28,
               borderRadius: 5,
@@ -65,18 +79,18 @@ const CustomDrawer = props => {
               justifyContent: 'center',
             }}>
             {isEnabled ? (
-              <Entypo name="light-down" size={24} color="#fff" />
+              <Entypo name="light-down" size={24} color="#3b3c3c" />
             ) : (
               <MaterialIcons name="dark-mode" size={18} color="#fff" />
             )}
           </View>
-          <Text style={{color: '#fff'}}>
+          <Text style={{color: darkMode ? '#fff' : '#010101'}}>
             {isEnabled ? 'Light Mode' : 'Dark Mode'}
           </Text>
         </View>
         <Switch
-          trackColor={{false: 'gray', true: '#fff'}}
-          thumbColor={isEnabled ? '#0081F1' : '#f4f3f4'}
+          trackColor={{false: 'gray', true: '#a0a0a0'}}
+          thumbColor={isEnabled ? '#6940D0' : '#f4f3f4'}
           ios_backgroundColor="#3e3e3e"
           onValueChange={toggleSwitch}
           value={isEnabled}
@@ -100,7 +114,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   userInfo: {
-    backgroundColor: '#424040',
+    // backgroundColor: '#424040',
     marginHorizontal: 14,
     marginBottom: 8,
     padding: 10,

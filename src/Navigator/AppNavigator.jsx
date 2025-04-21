@@ -31,8 +31,7 @@ import CryptoCurrencyDetails from '../screen/authenticated/CryptoCurrencyDetails
 import CustomDrawer from '../components/drawer/CustomDrawer';
 import Root from './Root';
 import {ThemeProvider, useTheme} from '../theme/ThemeContext';
-import WalletDuplicate from '../screen/authenticated/WalletDuplicate';
-import MarketDuplicate from '../screen/authenticated/MarketDuplicate';
+import ExchangeScreen from '../screen/authenticated/ExchangeScreen';
 
 // Create navigator
 const Stack = createNativeStackNavigator();
@@ -53,15 +52,13 @@ export const DashboardNavigator = () => {
       }}>
       <Drawer.Screen name="DASHBOARD" component={Dashboard} />
       <Drawer.Screen name="CRYPTO_DETAILS" component={CryptoCurrencyDetails} />
-      <Drawer.Screen name="WalletDuplicate" component={WalletDuplicate} />
-      <Drawer.Screen name="MarketDuplicate" component={MarketDuplicate} />
     </Drawer.Navigator>
   );
 };
 
 // Bottom Tab Navigator
 export const BottomTabs = () => {
-  const {theme, themeMode} = useTheme();
+  const {themeMode} = useTheme();
   const darkMode = themeMode === 'dark' ? true : false;
   return (
     <View
@@ -70,7 +67,7 @@ export const BottomTabs = () => {
         {backgroundColor: darkMode ? '#161616' : '#f6f8fa'},
       ]}>
       <Tab.Navigator
-        initialRouteName="WALLET"
+        initialRouteName="MARKET"
         screenOptions={{
           tabBarActiveTintColor: '#fff',
           tabBarInactiveTintColor: '#B4B4B4',
@@ -79,14 +76,17 @@ export const BottomTabs = () => {
             position: 'relative',
             bottom: 20,
             width: '90%',
-            backgroundColor: '#2F2F2F',
+            backgroundColor: darkMode ? '#2F2F2F' : '#ecf0f3',
             borderWidth: 1,
-            borderColor: '#3d3c3c',
+            borderColor: darkMode ? '#3d3c3c' : '#dedfe0',
             height: 68,
             borderRadius: 20,
             paddingTop: 12,
             margin: 'auto',
             elevation: 0,
+          },
+          tabBarLabelStyle: {
+            color: darkMode ? '#fff' : '#3d3c3c',
           },
         }}>
         <Tab.Screen
@@ -110,7 +110,7 @@ export const BottomTabs = () => {
                         alignItems: 'center',
                         opacity: 0.8,
                         // iOS Shadow
-                        shadowColor: '#f77f2e',
+                        shadowColor: darkMode ? '#f77f2e' : '#6940D0',
                         shadowOffset: {
                           width: 0,
                           height: 0,
@@ -126,7 +126,11 @@ export const BottomTabs = () => {
                         blurType="light"
                         blurAmount={30}
                         reducedTransparencyFallbackColor="red">
-                        <FontAwesome5 name="wallet" size={24} color={'#fff'} />
+                        <FontAwesome5
+                          name="wallet"
+                          size={24}
+                          color={darkMode ? '#fff' : '#3d3c3c'}
+                        />
                       </BlurView>
                     </LinearGradient>
                   ) : (
@@ -134,8 +138,12 @@ export const BottomTabs = () => {
                   )}
 
                   {focused && (
-                    <View style={styles.activeBorder}>
-                      <Text></Text>
+                    <View
+                      style={[
+                        styles.activeBorder,
+                        {backgroundColor: darkMode ? '#EA955B' : '#6940D0'},
+                      ]}>
+                      {/* empty */}
                     </View>
                   )}
                 </View>
@@ -146,14 +154,18 @@ export const BottomTabs = () => {
         />
         <Tab.Screen
           name="EXCHANGE"
-          component={CryptoCurrencyDetails} // Use any screen or a placeholder
+          component={ExchangeScreen} // Use any screen or a placeholder
           options={{
             headerShown: false,
             tabBarIcon: ({color}) => (
               <View style={{marginTop: -34}}>
                 <ImageBackground
-                  source={require('../assets/images/hexagon.png')}
-                  resizeMode="containe"
+                  source={
+                    darkMode
+                      ? require('../assets/images/hexagon.png')
+                      : require('../assets/icon/hexagon-light.png')
+                  }
+                  resizeMode="contain"
                   style={{width: 56, height: 56}}>
                   <View
                     style={{
@@ -166,7 +178,11 @@ export const BottomTabs = () => {
                       alignItems: 'center',
                     }}>
                     <Image
-                      source={require('../assets/images/card.png')}
+                      source={
+                        darkMode
+                          ? require('../assets/images/card.png')
+                          : require('../assets/icon/card-light.png')
+                      }
                       resizeMode="contain"
                       style={{width: 28, height: 28}}
                     />
@@ -200,7 +216,7 @@ export const BottomTabs = () => {
                         alignItems: 'center',
                         opacity: 0.7,
                         // iOS Shadow
-                        shadowColor: '#f77f2e',
+                        shadowColor: darkMode ? '#f77f2e' : '#6940D0',
                         shadowOffset: {
                           width: 0,
                           height: 0,
@@ -216,7 +232,11 @@ export const BottomTabs = () => {
                         blurType="light"
                         blurAmount={30}
                         reducedTransparencyFallbackColor="red">
-                        <FontAwesome5 name="wallet" size={24} color={'#fff'} />
+                        <FontAwesome5
+                          name="wallet"
+                          size={24}
+                          color={darkMode ? '#fff' : '#3d3c3c'}
+                        />
                       </BlurView>
                     </LinearGradient>
                   ) : (
@@ -224,8 +244,12 @@ export const BottomTabs = () => {
                   )}
 
                   {focused && (
-                    <View style={styles.activeBorder}>
-                      <Text></Text>
+                    <View
+                      style={[
+                        styles.activeBorder,
+                        {backgroundColor: darkMode ? '#EA955B' : '#6940D0'},
+                      ]}>
+                      {/* empty */}
                     </View>
                   )}
                 </View>
@@ -268,7 +292,7 @@ const styles = StyleSheet.create({
   },
 
   activeBorder: {
-    backgroundColor: '#EA955B',
+    // backgroundColor: '#EA955B',
     height: 2,
     width: 40,
     borderTopRightRadius: 5,
@@ -276,7 +300,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 1,
     top: -16,
-    left: -6,
+    left: -5,
   },
   blurContainer: {
     justifyContent: 'center',

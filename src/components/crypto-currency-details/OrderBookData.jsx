@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {useTheme} from '../../theme/ThemeContext';
 
 const orderData = [
   {demand: 350.66, price: 4.437181, offer: 3.952488, total: 652.09},
@@ -19,6 +20,9 @@ const MAX_OFFER = Math.max(...orderData.map(item => item.total));
 const OrderBookChart = () => {
   const [showMore, setShowMore] = useState(false);
   const [amount, setAmount] = useState('0.000001');
+  const {themeMode} = useTheme();
+  const darkMode = themeMode === 'dark' ? true : false;
+
   const handleAmount = item => {
     setAmount(item);
   };
@@ -31,7 +35,15 @@ const OrderBookChart = () => {
         <View style={{width: '50%'}}>
           {/* Price */}
           <View style={styles.center}>
-            <Text style={[styles.text, styles.price]}>
+            <Text
+              style={[
+                styles.text,
+                styles.price,
+                {
+                  color: darkMode ? '#d4d4d4' : '#010101',
+                  fontWeight: darkMode ? 'bold' : 'normal',
+                },
+              ]}>
               {item.demand.toFixed(2)}
             </Text>
           </View>
@@ -44,7 +56,7 @@ const OrderBookChart = () => {
                   styles.bar,
                   {
                     width: demandWidth,
-                    backgroundColor: '#555046',
+                    backgroundColor: darkMode ? '#555046' : '#ffff',
                     position: 'absolute',
                     right: 0,
                   },
@@ -66,7 +78,7 @@ const OrderBookChart = () => {
                   styles.bar,
                   {
                     width: offerWidth,
-                    backgroundColor: '#454545',
+                    backgroundColor: darkMode ? '#454545' : '#d9dde0',
                     position: 'absolute',
                     left: 0,
                   },
@@ -74,7 +86,11 @@ const OrderBookChart = () => {
               />
             </View>
           </View>
-          <Text style={[styles.text, {top: 6, color: '#f6f6f6'}]}>
+          <Text
+            style={[
+              styles.text,
+              {top: 6, color: darkMode ? '#f6f6f6' : '#010101'},
+            ]}>
             {item.total.toFixed(2)}
           </Text>
         </View>
@@ -101,21 +117,24 @@ const OrderBookChart = () => {
               justifyContent: 'space-between',
               alignItems: 'center',
             }}>
-            <Text style={{color: '#f6f6f6', fontSize: 11}}>{amount}</Text>
+            <Text
+              style={{color: darkMode ? '#f6f6f6' : '#3b3c3c', fontSize: 11}}>
+              {amount}
+            </Text>
             <TouchableOpacity onPress={() => setShowMore(!showMore)}>
               <MaterialIcons
                 name="keyboard-arrow-down"
                 size={16}
-                color="#f6f6f6"
+                color={darkMode ? '#f6f6f6' : '#3b3c3c'}
               />
             </TouchableOpacity>
             {showMore && (
               <View
                 style={{
                   width: 80,
-                  backgroundColor: '#373737',
+                  backgroundColor: darkMode ? '#373737' : '#ecf0f3',
                   borderWidth: 1,
-                  borderColor: '#666666',
+                  borderColor: darkMode ? '#666666' : '#d5dde2',
                   position: 'absolute',
                   borderRadius: 5,
                   top: 0,
@@ -127,7 +146,7 @@ const OrderBookChart = () => {
                 <TouchableOpacity onPress={() => handleAmount('0.000001')}>
                   <Text
                     style={{
-                      color: '#f6f6f6',
+                      color: darkMode ? '#f6f6f6' : '#3b3c3c',
                       fontSize: 11,
                       paddingVertical: 5,
                     }}>
@@ -137,7 +156,7 @@ const OrderBookChart = () => {
                 <TouchableOpacity onPress={() => handleAmount('0.000002')}>
                   <Text
                     style={{
-                      color: '#f6f6f6',
+                      color: darkMode ? '#f6f6f6' : '#3b3c3c',
                       fontSize: 11,
                       paddingVertical: 5,
                     }}>
@@ -194,8 +213,6 @@ const styles = StyleSheet.create({
   price: {
     left: 0,
     top: 6,
-    fontWeight: 'bold',
-    color: '#d4d4d4',
   },
 
   barWrapper: {

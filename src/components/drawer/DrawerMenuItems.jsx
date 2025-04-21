@@ -20,6 +20,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import {useNavigation} from '@react-navigation/native';
+import {useTheme} from '../../theme/ThemeContext';
 // import {colors} from '../../application/color';
 
 // This is added by hera
@@ -28,6 +29,8 @@ export default function DrawerMenuItems() {
   const [activeSubItem, setActiveSubItem] = React.useState('');
   const [expandedItems, setExpandedItems] = React.useState({}); // Track expanded menu items
   const navigation = useNavigation();
+  const {themeMode} = useTheme();
+  const darkMode = themeMode === 'dark' ? true : false;
 
   const handleSubItemToggle = item => {
     // If the item is already expanded, collapse it, otherwise expand it
@@ -50,31 +53,39 @@ export default function DrawerMenuItems() {
       id: 1,
       title: 'Dashboard',
       icon: (
-        <AntDesign name="home" color="white" size={responsiveFontSize(2.5)} />
+        <AntDesign
+          name="home"
+          color={darkMode ? 'white' : '#3c3b3b'}
+          size={responsiveFontSize(2.5)}
+        />
       ),
       subItems: [],
       onPress: () => {
         navigation.navigate('DASHBOARD');
       },
     },
-    {
-      id: 2,
-      title: 'IB Dashboard',
-      icon: (
-        <AntDesign name="home" color="white" size={responsiveFontSize(2.5)} />
-      ),
-      subItems: [],
-      onPress: () => {
-        navigation.navigate('DASHBOARD');
-      },
-    },
+    // {
+    //   id: 2,
+    //   title: 'IB Dashboard',
+    //   icon: (
+    //     <AntDesign
+    //       name="home"
+    //       color={darkMode ? 'white' : '#3c3b3b'}
+    //       size={responsiveFontSize(2.5)}
+    //     />
+    //   ),
+    //   subItems: [],
+    //   onPress: () => {
+    //     navigation.navigate('DASHBOARD');
+    //   },
+    // },
     {
       id: 3,
       title: 'User Admin',
       icon: (
         <MaterialCommunityIcons
           name="account-outline"
-          color="white"
+          color={darkMode ? 'white' : '#3c3b3b'}
           size={responsiveFontSize(2.5)}
         />
       ),
@@ -99,37 +110,37 @@ export default function DrawerMenuItems() {
         },
       ],
     },
-    {
-      id: 4,
-      title: 'IB Admin',
-      icon: (
-        <MaterialCommunityIcons
-          name="account-outline"
-          color="white"
-          size={responsiveFontSize(2.5)}
-        />
-      ),
-      subItems: [
-        {
-          title: 'Profile Setting',
-          onPress: () => {
-            navigation.navigate('PROFILE');
-          },
-        },
-        {
-          title: 'Verification',
-          onPress: () => {
-            navigation.navigate('ACCOUNTVERIFICATION');
-          },
-        },
-        {
-          title: 'Banking',
-          onPress: () => {
-            navigation.navigate('ADD_BANK');
-          },
-        },
-      ],
-    },
+    // {
+    //   id: 4,
+    //   title: 'IB Admin',
+    //   icon: (
+    //     <MaterialCommunityIcons
+    //       name="account-outline"
+    //       color={darkMode ? 'white' : '#3c3b3b'}
+    //       size={responsiveFontSize(2.5)}
+    //     />
+    //   ),
+    //   subItems: [
+    //     {
+    //       title: 'Profile Setting',
+    //       onPress: () => {
+    //         navigation.navigate('PROFILE');
+    //       },
+    //     },
+    //     {
+    //       title: 'Verification',
+    //       onPress: () => {
+    //         navigation.navigate('ACCOUNTVERIFICATION');
+    //       },
+    //     },
+    //     {
+    //       title: 'Banking',
+    //       onPress: () => {
+    //         navigation.navigate('ADD_BANK');
+    //       },
+    //     },
+    //   ],
+    // },
     {
       id: 15,
       title: 'Notifications',
@@ -137,7 +148,7 @@ export default function DrawerMenuItems() {
         <Ionicons
           name="notifications-outline"
           size={responsiveFontSize(2.5)}
-          color="white"
+          color={darkMode ? 'white' : '#3c3b3b'}
         />
       ),
       subItems: [],
@@ -151,7 +162,7 @@ export default function DrawerMenuItems() {
       icon: (
         <MaterialCommunityIcons
           name="account-multiple-plus-outline"
-          color="white"
+          color={darkMode ? 'white' : '#3c3b3b'}
           size={responsiveFontSize(2.5)}
         />
       ),
@@ -182,7 +193,7 @@ export default function DrawerMenuItems() {
       icon: (
         <AntDesign
           name="creditcard"
-          color="white"
+          color={darkMode ? 'white' : '#3c3b3b'}
           size={responsiveFontSize(2.5)}
         />
       ),
@@ -201,7 +212,7 @@ export default function DrawerMenuItems() {
       icon: (
         <AntDesign
           name="creditcard"
-          color="white"
+          color={darkMode ? 'white' : '#3c3b3b'}
           size={responsiveFontSize(2.5)}
         />
       ),
@@ -214,32 +225,32 @@ export default function DrawerMenuItems() {
         },
       ],
     },
-    {
-      id: 8,
-      title: 'IB Withdraw',
-      icon: (
-        <AntDesign
-          name="creditcard"
-          color="white"
-          size={responsiveFontSize(2.5)}
-        />
-      ),
-      subItems: [
-        {
-          title: 'Withdraw',
-          onPress: () => {
-            navigation.navigate('PROFILE');
-          },
-        },
-      ],
-    },
+    // {
+    //   id: 8,
+    //   title: 'IB Withdraw',
+    //   icon: (
+    //     <AntDesign
+    //       name="creditcard"
+    //       color={darkMode ? 'white' : '#3c3b3b'}
+    //       size={responsiveFontSize(2.5)}
+    //     />
+    //   ),
+    //   subItems: [
+    //     {
+    //       title: 'Withdraw',
+    //       onPress: () => {
+    //         navigation.navigate('PROFILE');
+    //       },
+    //     },
+    //   ],
+    // },
     {
       id: 9,
       title: 'Transfer',
       icon: (
         <FontAwesome
           name="expand"
-          color="white"
+          color={darkMode ? 'white' : '#3c3b3b'}
           size={responsiveFontSize(2.5)}
         />
       ),
@@ -258,30 +269,34 @@ export default function DrawerMenuItems() {
         },
       ],
     },
-    {
-      id: 10,
-      title: 'IB Transfer',
-      icon: (
-        <FontAwesome
-          name="expand"
-          color="white"
-          size={responsiveFontSize(2.5)}
-        />
-      ),
-      subItems: [
-        {
-          title: 'External Transfer',
-          onPress: () => {
-            navigation.navigate('PROFILE');
-          },
-        },
-      ],
-    },
+    // {
+    //   id: 10,
+    //   title: 'IB Transfer',
+    //   icon: (
+    //     <FontAwesome
+    //       name="expand"
+    //       color={darkMode ? 'white' : '#3c3b3b'}
+    //       size={responsiveFontSize(2.5)}
+    //     />
+    //   ),
+    //   subItems: [
+    //     {
+    //       title: 'External Transfer',
+    //       onPress: () => {
+    //         navigation.navigate('PROFILE');
+    //       },
+    //     },
+    //   ],
+    // },
     {
       id: 11,
       title: 'Trader Reports',
       icon: (
-        <AntDesign name="bars" color="white" size={responsiveFontSize(2.5)} />
+        <AntDesign
+          name="bars"
+          color={darkMode ? 'white' : '#3c3b3b'}
+          size={responsiveFontSize(2.5)}
+        />
       ),
       subItems: [
         {
@@ -320,7 +335,11 @@ export default function DrawerMenuItems() {
       id: 12,
       title: 'IB Reports',
       icon: (
-        <AntDesign name="bars" color="white" size={responsiveFontSize(2.5)} />
+        <AntDesign
+          name="bars"
+          color={darkMode ? 'white' : '#3c3b3b'}
+          size={responsiveFontSize(2.5)}
+        />
       ),
       subItems: [
         {
@@ -355,7 +374,7 @@ export default function DrawerMenuItems() {
       icon: (
         <MaterialCommunityIcons
           name="account-group-outline"
-          color="white"
+          color={darkMode ? 'white' : '#3c3b3b'}
           size={responsiveFontSize(2.5)}
         />
       ),
@@ -380,47 +399,59 @@ export default function DrawerMenuItems() {
         },
       ],
     },
-    {
-      id: 12,
-      title: 'PAMM',
-      icon: (
-        <Feather name="copy" color="white" size={responsiveFontSize(2.5)} />
-      ),
-      subItems: [
-        {
-          title: 'Pamm Profile',
-          onPress: () => {
-            navigation.navigate('PROFILE');
-          },
-        },
-        {
-          title: 'Pamm Registration',
-          onPress: () => {
-            navigation.navigate('PROFILE');
-          },
-        },
-      ],
-    },
-    {
-      id: 13,
-      title: 'MAMM',
-      icon: (
-        <Feather name="copy" color="white" size={responsiveFontSize(2.5)} />
-      ),
-      subItems: [
-        {
-          title: 'Manage Slave Account',
-          onPress: () => {
-            navigation.navigate('PROFILE');
-          },
-        },
-      ],
-    },
+    // {
+    //   id: 12,
+    //   title: 'PAMM',
+    //   icon: (
+    //     <Feather
+    //       name="copy"
+    //       color={darkMode ? 'white' : '#3c3b3b'}
+    //       size={responsiveFontSize(2.5)}
+    //     />
+    //   ),
+    //   subItems: [
+    //     {
+    //       title: 'Pamm Profile',
+    //       onPress: () => {
+    //         navigation.navigate('PROFILE');
+    //       },
+    //     },
+    //     {
+    //       title: 'Pamm Registration',
+    //       onPress: () => {
+    //         navigation.navigate('PROFILE');
+    //       },
+    //     },
+    //   ],
+    // },
+    // {
+    //   id: 13,
+    //   title: 'MAMM',
+    //   icon: (
+    //     <Feather
+    //       name="copy"
+    //       color={darkMode ? 'white' : '#3c3b3b'}
+    //       size={responsiveFontSize(2.5)}
+    //     />
+    //   ),
+    //   subItems: [
+    //     {
+    //       title: 'Manage Slave Account',
+    //       onPress: () => {
+    //         navigation.navigate('PROFILE');
+    //       },
+    //     },
+    //   ],
+    // },
     {
       id: 13,
       title: 'Copy Trading',
       icon: (
-        <Feather name="copy" color="white" size={responsiveFontSize(2.5)} />
+        <Feather
+          name="copy"
+          color={darkMode ? 'white' : '#3c3b3b'}
+          size={responsiveFontSize(2.5)}
+        />
       ),
       subItems: [
         {
@@ -441,7 +472,11 @@ export default function DrawerMenuItems() {
       id: 14,
       title: 'Economic Calendar',
       icon: (
-        <Fontisto name="date" color="white" size={responsiveFontSize(2.5)} />
+        <Fontisto
+          name="date"
+          color={darkMode ? 'white' : '#3c3b3b'}
+          size={responsiveFontSize(2.5)}
+        />
       ),
       subItems: [],
       onPress: () => {
@@ -463,10 +498,15 @@ export default function DrawerMenuItems() {
                 handleSubItemToggle(menuItem.title);
               }
             }}
-            style={styles.menuItem}>
+            style={[
+              styles.menuItem,
+              {backgroundColor: darkMode ? '#424040' : '#eef0f4'},
+            ]}>
             <View style={{flexDirection: 'row', alignItems: 'center', gap: 10}}>
               {menuItem.icon}
-              <Text style={{color: 'white'}}>{menuItem.title}</Text>
+              <Text style={{color: darkMode ? 'white' : '#3b3c3c'}}>
+                {menuItem.title}
+              </Text>
             </View>
             <View>
               <AntDesign
@@ -477,7 +517,7 @@ export default function DrawerMenuItems() {
                       : 'plus'
                     : 'arrowright'
                 }
-                color="white"
+                color={darkMode ? 'white' : '#3b3c3c'}
                 size={responsiveFontSize(2.5)}
               />
             </View>
@@ -485,7 +525,11 @@ export default function DrawerMenuItems() {
 
           {/* Subitems */}
           {expandedItems[menuItem.title] && menuItem.subItems.length > 0 && (
-            <View style={styles.subItemsContainer}>
+            <View
+              style={[
+                styles.subItemsContainer,
+                {backgroundColor: darkMode ? '#3f3e3e' : '#d5dde2'},
+              ]}>
               {menuItem.subItems.map((subItem, subIndex) => (
                 <TouchableOpacity key={subIndex} onPress={subItem?.onPress}>
                   <View
@@ -502,16 +546,18 @@ export default function DrawerMenuItems() {
                       }}>
                       <Feather
                         name="circle"
-                        color="white"
+                        color={darkMode ? 'white' : '#3b3c3c'}
                         size={responsiveFontSize(1.3)}
                       />
-                      <Text style={{color: 'white'}}>{subItem.title}</Text>
+                      <Text style={{color: darkMode ? 'white' : '#010101'}}>
+                        {subItem.title}
+                      </Text>
                     </View>
                     {/* explore icon  */}
                     <View>
                       <AntDesign
                         name="right"
-                        color="white"
+                        color={darkMode ? 'white' : '#3b3c3c'}
                         size={responsiveFontSize(1.8)}
                       />
                     </View>
@@ -532,7 +578,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: responsiveWidth(3),
   },
   menuItem: {
-    backgroundColor: '#424040',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -546,7 +591,6 @@ const styles = StyleSheet.create({
     paddingRight: responsiveWidth(3),
     marginTop: responsiveHeight(1),
     paddingVertical: responsiveHeight(1.5),
-    backgroundColor: '#161616',
     borderRadius: 10,
     gap: 20,
   },

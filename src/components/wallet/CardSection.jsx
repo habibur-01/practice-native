@@ -1,7 +1,10 @@
 import React, {memo} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {useTheme} from '../../theme/ThemeContext';
-import {responsiveHeight} from 'react-native-responsive-dimensions';
+import {
+  responsiveFontSize,
+  responsiveHeight,
+} from 'react-native-responsive-dimensions';
 import LinearGradient from 'react-native-linear-gradient';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -51,24 +54,24 @@ const CardSection = memo(() => {
           <View style={{flexDirection: 'row', gap: 0}}>
             <Entypo
               name="dots-two-horizontal"
-              size={22}
+              size={21}
               color={darkMode ? '#F8F6F4' : '#fff'}
             />
             <Entypo
               name="dots-two-horizontal"
-              size={22}
+              size={21}
               color={darkMode ? '#F8F6F4' : '#fff'}
             />
           </View>
           <View style={{flexDirection: 'row', gap: 0}}>
             <Entypo
               name="dots-two-horizontal"
-              size={22}
+              size={21}
               color={darkMode ? '#F8F6F4' : '#fff'}
             />
             <Entypo
               name="dots-two-horizontal"
-              size={22}
+              size={21}
               color={darkMode ? '#F8F6F4' : '#fff'}
             />
           </View>
@@ -93,7 +96,7 @@ const CardSection = memo(() => {
           </View>
           <View>
             <View style={{flexDirection: 'row', gap: 8, alignItems: 'center'}}>
-              <Entypo name="dots-three-horizontal" size={22} color="#F8F6F4" />
+              <Entypo name="dots-three-horizontal" size={21} color="#F8F6F4" />
               <FontAwesome name="lock" size={10} color="#F8F6F4" />
             </View>
             <Text
@@ -129,19 +132,19 @@ const styles = StyleSheet.create({
   },
   cardTitlte: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: responsiveFontSize(2.2),
     letterSpacing: 3,
   },
   cardNumber: {
     color: '#fff',
-    fontSize: 24,
+    fontSize: responsiveFontSize(2.8),
   },
   cardExpDate: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: responsiveFontSize(1.9),
   },
   cardExpiration: {
-    fontSize: 14,
+    fontSize: responsiveFontSize(1.6),
   },
 });
 

@@ -5,6 +5,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
 import {useTheme} from '../../theme/ThemeContext';
+import {responsiveFontSize} from 'react-native-responsive-dimensions';
 const data = [
   {
     id: 1,
@@ -20,7 +21,7 @@ const data = [
     symbol: 'TON',
     name: 'TONCOIN',
     price: '18.67',
-    change: '+6.81%',
+    change: '+92.81%',
     lightIcon: require('../../assets/icon/ton.png'),
     darkIcon: require('../../assets/icon/ton-dark.png'),
   },
@@ -67,7 +68,7 @@ const AssetsList = memo(() => {
             colors={
               darkMode
                 ? ['#3f3f3f', '#383737', '#575757', '#5C5C5C']
-                : ['#F7F7F7', '#FFF']
+                : ['#ffffff', '#F6F6F6']
             }
             start={{x: 0, y: 0}}
             end={{x: 1, y: 0}}
@@ -96,11 +97,15 @@ const AssetsList = memo(() => {
                   <Text
                     style={{
                       color: darkMode ? '#E8E8E8' : '#010101',
-                      fontSize: 14,
+                      fontSize: responsiveFontSize(1.6),
                     }}>
                     {item?.symbol}
                   </Text>
-                  <Text style={{color: '#909090', fontSize: 13}}>
+                  <Text
+                    style={{
+                      color: '#909090',
+                      fontSize: responsiveFontSize(1.5),
+                    }}>
                     {item?.name}
                   </Text>
                 </View>
@@ -130,6 +135,7 @@ const AssetsList = memo(() => {
                 </View>
                 <Text
                   style={{
+                    fontSize: responsiveFontSize(1.6),
                     color: darkMode ? '#DAD6C3' : '#A0A0A0',
                     alignSelf: 'flex-end',
                   }}>

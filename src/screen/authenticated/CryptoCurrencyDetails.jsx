@@ -11,44 +11,77 @@ import {useNavigation} from '@react-navigation/native';
 import OrderBookChart from '../../components/crypto-currency-details/OrderBookData';
 import BarChart2 from '../../components/crypto-currency-details/BarChart2';
 import {responsiveHeight} from 'react-native-responsive-dimensions';
+import {useTheme} from '../../theme/ThemeContext';
 
 const CryptoCurrencyDetails = memo(route => {
   // const item = route.route.params.item;
   const [isTab, setIsTab] = useState('30m');
   const [isactiveTab, setActiveTab] = useState('dea');
   const navigation = useNavigation();
+  const {theme, themeMode} = useTheme();
+  const darkMode = themeMode === 'dark' ? true : false;
 
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#4E4E4E', '#373737', '#373737']}
+        colors={
+          darkMode ? ['#4E4E4E', '#373737', '#373737'] : ['#f6f8fa', '#e9ecef']
+        }
         start={{x: 0, y: 0}}
         end={{x: 0, y: 1}}
         style={styles.topChartSection}>
         <View style={styles.topSection}>
           <LinearGradient
-            colors={['#575757', '#5F5F5F', '#727272']}
+            colors={
+              darkMode
+                ? ['#575757', '#5F5F5F', '#727272']
+                : ['#EFF3F4', '#EFF3F4']
+            }
             start={{x: 0, y: 1}}
             end={{x: 1, y: 0}}
             style={{borderRadius: 10}}>
             <TouchableOpacity
               onPress={() => navigation.goBack()}
-              style={styles.scannerBtn}>
-              <AntDesign name="arrowleft" size={24} color="#949494" />
+              style={[
+                styles.scannerBtn,
+                {borderColor: darkMode ? '#929292' : '#e5e7e8'},
+              ]}>
+              <AntDesign
+                name="arrowleft"
+                size={24}
+                color={darkMode ? '#949494' : '#A0A0A0'}
+              />
             </TouchableOpacity>
           </LinearGradient>
 
-          <Text style={styles.topSectionTitle}>TON</Text>
+          <Text
+            style={[
+              styles.topSectionTitle,
+              {color: darkMode ? '#fff' : '#010101'},
+            ]}>
+            TON
+          </Text>
 
           <LinearGradient
-            colors={['#575757', '#5F5F5F', '#727272']}
+            colors={
+              darkMode
+                ? ['#575757', '#5F5F5F', '#727272']
+                : ['#EFF3F4', '#EFF3F4']
+            }
             start={{x: 0, y: 1}}
             end={{x: 1, y: 0}}
             style={{borderRadius: 10}}>
             <TouchableOpacity
               onPress={() => console.log('notify')}
-              style={styles.favBtn}>
-              <AntDesign name="star" size={22} color="#949494" />
+              style={[
+                styles.favBtn,
+                {borderColor: darkMode ? '#929292' : '#e5e7e8'},
+              ]}>
+              <AntDesign
+                name="star"
+                size={22}
+                color={darkMode ? '#949494' : '#A0A0A0'}
+              />
             </TouchableOpacity>
           </LinearGradient>
         </View>
@@ -61,21 +94,34 @@ const CryptoCurrencyDetails = memo(route => {
           }}>
           <View style={styles.cryptoInfo}>
             <Image
-              source={require('../../assets/icon/ton.png')}
+              source={
+                darkMode
+                  ? require('../../assets/icon/ton.png')
+                  : require('../../assets/icon/ton-dark.png')
+              }
               resizeMode="cover"
               style={{width: 34, height: 34}}
             />
             <View>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <MaterialIcons name="euro" size={13} color="#E4E4E4" />
-                <Text style={{color: '#E4E4E4', fontSize: 14, marginLeft: 1}}>
+                <MaterialIcons
+                  name="euro"
+                  size={13}
+                  color={darkMode ? '#E4E4E4' : '#010101'}
+                />
+                <Text
+                  style={{
+                    color: darkMode ? '#E4E4E4' : '#010101',
+                    fontSize: 14,
+                    marginLeft: 1,
+                  }}>
                   4.135802
                 </Text>
               </View>
               <Text
                 style={{
                   textTransform: 'uppercase',
-                  color: '#d4d4E0',
+                  color: darkMode ? '#a2a2a5' : '#6b6b6b',
                   fontSize: 12,
                 }}>
                 TONCOIN PRICE
@@ -84,7 +130,11 @@ const CryptoCurrencyDetails = memo(route => {
           </View>
           <View>
             <Text
-              style={{color: '#F7F0DB', fontSize: 17, fontWeight: 'medium'}}>
+              style={{
+                color: darkMode ? '#F7F0DB' : '#fcbb46',
+                fontSize: 17,
+                fontWeight: 'medium',
+              }}>
               +2.75%
             </Text>
           </View>
@@ -97,7 +147,9 @@ const CryptoCurrencyDetails = memo(route => {
         </View>
       </LinearGradient>
       <LinearGradient
-        colors={['#4E4E4E', '#444444', '#262626']}
+        colors={
+          darkMode ? ['#4E4E4E', '#444444', '#262626'] : ['#f6f8fa', '#e9ecef']
+        }
         start={{x: 0, y: 0}}
         end={{x: 0, y: 1}}
         style={{flex: 1, flex: 0.5}}>
@@ -114,7 +166,12 @@ const CryptoCurrencyDetails = memo(route => {
             <TouchableOpacity onPress={() => setActiveTab('dif')}>
               <Text
                 style={{
-                  color: isactiveTab === 'dif' ? '#E9E6D8' : '#7F7F7F',
+                  color:
+                    isactiveTab === 'dif'
+                      ? darkMode
+                        ? '#E9E6D8'
+                        : '#fcbb46'
+                      : '#7F7F7F',
                   fontSize: 12,
                 }}>
                 DIF-331.21
@@ -123,7 +180,12 @@ const CryptoCurrencyDetails = memo(route => {
             <TouchableOpacity onPress={() => setActiveTab('dea')}>
               <Text
                 style={{
-                  color: isactiveTab === 'dea' ? '#E9E6D8' : '#7F7F7F',
+                  color:
+                    isactiveTab === 'dea'
+                      ? darkMode
+                        ? '#E9E6D8'
+                        : '#fcbb46'
+                      : '#7F7F7F',
                   fontSize: 12,
                 }}>
                 DEA-711.21
@@ -132,7 +194,12 @@ const CryptoCurrencyDetails = memo(route => {
             <TouchableOpacity onPress={() => setActiveTab('macd')}>
               <Text
                 style={{
-                  color: isactiveTab === 'macd' ? '#E9E6D8' : '#7F7F7F',
+                  color:
+                    isactiveTab === 'macd'
+                      ? darkMode
+                        ? '#E9E6D8'
+                        : '#fcbb46'
+                      : '#7F7F7F',
                   fontSize: 12,
                 }}>
                 MACD-6.21
@@ -141,7 +208,12 @@ const CryptoCurrencyDetails = memo(route => {
             <TouchableOpacity onPress={() => setActiveTab('vol')}>
               <Text
                 style={{
-                  color: isactiveTab === 'vol' ? '#E9E6D8' : '#7F7F7F',
+                  color:
+                    isactiveTab === 'vol'
+                      ? darkMode
+                        ? '#E9E6D8'
+                        : '#fcbb46'
+                      : '#7F7F7F',
                   fontSize: 12,
                 }}>
                 VOL 203.11
@@ -198,7 +270,7 @@ const styles = StyleSheet.create({
   },
   topSectionTitle: {
     fontSize: 22,
-    color: '#fff',
+    // color: '#fff',
   },
   cryptoInfo: {
     flexDirection: 'row',

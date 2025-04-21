@@ -1,11 +1,15 @@
+import {DarkTheme} from '@react-navigation/native';
 import React from 'react';
 import {View, ScrollView, Dimensions} from 'react-native';
 import {responsiveHeight} from 'react-native-responsive-dimensions';
 import Svg, {Line, Rect, Text} from 'react-native-svg';
+import {useTheme} from '../../theme/ThemeContext';
 
 const Candlestick = () => {
   const width = Dimensions.get('window').width;
   const height = responsiveHeight(20);
+  const {themeMode} = useTheme();
+  const darkMode = themeMode === 'dark' ? true : false;
   const data = [
     {open: 50, high: 80, low: 40, close: 70},
     {open: 70, high: 90, low: 60, close: 65},
@@ -88,7 +92,7 @@ const Candlestick = () => {
             x2={chartWidth}
             y1={midPriceY}
             y2={midPriceY}
-            stroke="#FFE4B2"
+            stroke={darkMode ? '#FFE4B2' : '#fcbb46'}
             strokeWidth="0.8"
             strokeDasharray="4 2"
           />
@@ -101,7 +105,7 @@ const Candlestick = () => {
             ry="12"
             width={labelWidth}
             height={26}
-            fill="#FFE4B2"
+            fill={darkMode ? '#FFE4B2' : '#fcbb46'}
             zIndex={1}
           />
           <Text
@@ -118,6 +122,7 @@ const Candlestick = () => {
           {data.map((item, index) => {
             const x = candleOffsetX + index * spacing;
             const color = item.close >= item.open ? '#D9D4B3' : '#929292';
+
             const bodyTop = priceToY(Math.max(item.open, item.close));
             const bodyBottom = priceToY(Math.min(item.open, item.close));
             const bodyHeight = Math.abs(bodyBottom - bodyTop);

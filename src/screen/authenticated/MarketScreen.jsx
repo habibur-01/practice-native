@@ -89,8 +89,16 @@ const MarketScreen = memo(() => {
               styles.notifyBtn,
               {borderColor: darkMode ? '#A0A0A0' : '#e5e7e8'},
             ]}>
-            <Ionicons name="notifications-sharp" size={24} color="#CAB9AD" />
-            <View style={styles.notifyBadge}>
+            <Ionicons
+              name="notifications-sharp"
+              size={24}
+              color={darkMode ? '#CAB9AD' : '#A0A0A0'}
+            />
+            <View
+              style={[
+                styles.notifyBadge,
+                {backgroundColor: darkMode ? '#EA955B' : '#6940D0'},
+              ]}>
               <Text style={styles.notifyBadgeText}>6</Text>
             </View>
           </TouchableOpacity>
@@ -111,7 +119,7 @@ const MarketScreen = memo(() => {
               ASSETS
             </Text>
           </View>
-          <View>
+          <View style={{alignSelf: 'flex-end'}}>
             <TouchableOpacity
               style={{
                 flexDirection: 'row',
@@ -120,7 +128,7 @@ const MarketScreen = memo(() => {
               }}
               onPress={() => setExpandGainers(!expandGainers)}>
               <Text
-                style={{color: darkMode ? '#E0E0E0' : '#3f3b3b', fontSize: 12}}>
+                style={{color: darkMode ? '#E0E0E0' : '#3f3b3b', fontSize: 11}}>
                 GAINERS
               </Text>
               <MaterialIcons
@@ -140,7 +148,7 @@ const MarketScreen = memo(() => {
                   width: 100,
                   backgroundColor: darkMode ? '#484848' : '#EFF3F4',
                   borderWidth: 1,
-                  borderColor: darkMode ? '#7A7A7A' : '#fff',
+                  borderColor: darkMode ? '#7A7A7A' : '#dee1e8',
                   padding: 10,
                   borderRadius: 12,
                 }}>
@@ -153,6 +161,8 @@ const MarketScreen = memo(() => {
             )}
           </View>
         </View>
+
+        {/* Card section */}
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -175,11 +185,6 @@ const MarketScreen = memo(() => {
               paddingHorizontal: 20,
               paddingTop: 14,
               overflow: 'hidden',
-              // shadowColor: '#373737',
-              // shadowOffset: {width: 0, height: 6},
-              // shadowOpacity: 0.2,
-              // shadowRadius: 6.65,
-              // elevation: 8,
             }}>
             <View
               style={{
@@ -276,7 +281,11 @@ const MarketScreen = memo(() => {
                 gap: 10,
               }}>
               <Image
-                source={require('../../assets/icon/sfp.png')}
+                source={
+                  darkMode
+                    ? require('../../assets/icon/safepal.png')
+                    : require('../../assets/icon/sfp-light.png')
+                }
                 resizeMode="cover"
                 style={{width: 36, height: 36}}
               />
@@ -436,21 +445,23 @@ const MarketScreen = memo(() => {
               MARKET
             </Text>
           </View>
-          <View>
+          <View style={{alignSelf: 'flex-end'}}>
             <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}
               onPress={() => setExpandMore(!expandMore)}>
               <Text
                 style={{
                   color: darkMode ? '#E0E0E0' : '#3f3b3b',
-                  fontSize: 12,
-                  alignSelf: 'baseline',
+                  fontSize: 11,
                 }}>
                 LAST WEEK
               </Text>
               <MaterialIcons
                 name="keyboard-arrow-down"
-                size={18}
+                size={17}
                 color={darkMode ? '#DADADA' : '#3f3b3b'}
               />
             </TouchableOpacity>
@@ -465,7 +476,7 @@ const MarketScreen = memo(() => {
                   width: 130,
                   backgroundColor: darkMode ? '#484848' : '#EFF3F4',
                   borderWidth: 1,
-                  borderColor: darkMode ? '#7A7A7A' : '#fff',
+                  borderColor: darkMode ? '#7A7A7A' : '#dee1e8',
                   padding: 10,
                   borderRadius: 12,
                 }}>
@@ -473,14 +484,22 @@ const MarketScreen = memo(() => {
                   style={{
                     paddingVertical: 10,
                     borderBottomWidth: 1,
-                    borderColor: darkmode ? '#7a7a7a' : '#fff',
+                    borderColor: darkMode ? '#7a7a7a' : '#dee1e8',
                   }}>
-                  <Text style={{color: darkMode ? '#F6F6F6' : '#3f3b3b'}}>
+                  <Text
+                    style={{
+                      color: darkMode ? '#F6F6F6' : '#3f3b3b',
+                      fontSize: 12,
+                    }}>
                     LAST MONTH
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{paddingVertical: 10}}>
-                  <Text style={{color: darkMode ? '#F6F6F6' : '#3f3b3b'}}>
+                  <Text
+                    style={{
+                      color: darkMode ? '#F6F6F6' : '#3f3b3b',
+                      fontSize: 12,
+                    }}>
                     LAST 3 MOTNH
                   </Text>
                 </TouchableOpacity>
@@ -680,7 +699,7 @@ const styles = StyleSheet.create({
   },
   notifyBadge: {
     position: 'absolute',
-    backgroundColor: '#EA955B',
+    // backgroundColor: '#EA955B',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 4,

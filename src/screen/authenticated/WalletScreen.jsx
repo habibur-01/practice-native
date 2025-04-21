@@ -19,6 +19,7 @@ import DepositList from '../../components/wallet/DepositList';
 import {
   responsiveFontSize,
   responsiveHeight,
+  responsiveScreenFontSize,
 } from 'react-native-responsive-dimensions';
 import {useTheme} from '../../theme/ThemeContext';
 import CardSection from '../../components/wallet/CardSection';
@@ -164,7 +165,7 @@ const WalletScreen = () => {
       </View>
 
       {/* Balance Section */}
-      <View style={{marginVertical: 30}}>
+      <View style={{marginVertical: 24}}>
         <View style={styles.amountContainer}>
           <FontAwesome
             name="euro"
@@ -191,7 +192,12 @@ const WalletScreen = () => {
       </View>
 
       {/* Income & Withdrawal Tab */}
-      <View style={{marginVertical: 20, flexDirection: 'row', gap: 10}}>
+      <View
+        style={{
+          marginVertical: responsiveHeight(2),
+          flexDirection: 'row',
+          gap: 10,
+        }}>
         <LinearGradient
           colors={darkMode ? ['#515353', '#4C4C4C'] : ['#FDFFFF', '#FDFFFF']}
           start={{x: 0, y: 0}}
@@ -211,16 +217,23 @@ const WalletScreen = () => {
             <Feather name="arrow-down-left" size={20} color="#4F4F4F" />
           </View>
           <View style={styles.incomeText}>
-            <Text style={{color: darkMode ? '#FFF' : '#010101', fontSize: 16}}>
+            <Text
+              style={{
+                color: darkMode ? '#FFF' : '#010101',
+                fontSize: responsiveFontSize(1.8),
+              }}>
               <FontAwesome
                 name="euro"
-                size={15}
+                size={14}
                 color={darkMode ? '#fff' : '#010101'}
               />
               36 850.01
             </Text>
             <Text
-              style={{color: darkMode ? '#C6C4C3' : '#a0a0a0', fontSize: 13}}>
+              style={{
+                color: darkMode ? '#C6C4C3' : '#a0a0a0',
+                fontSize: responsiveFontSize(1.5),
+              }}>
               INCOME
             </Text>
           </View>
@@ -244,16 +257,23 @@ const WalletScreen = () => {
             <Feather name="arrow-up-right" size={20} color="#4F4F4F" />
           </View>
           <View style={styles.incomeText}>
-            <Text style={{color: darkMode ? '#FFF' : '#010101', fontSize: 16}}>
+            <Text
+              style={{
+                color: darkMode ? '#FFF' : '#010101',
+                fontSize: responsiveFontSize(1.8),
+              }}>
               <FontAwesome
                 name="euro"
-                size={15}
+                size={14}
                 color={darkMode ? '#fff' : '#010101'}
               />
               7200.48
             </Text>
             <Text
-              style={{color: darkMode ? '#C6C4C3' : '#a0a0a0', fontSize: 13}}>
+              style={{
+                color: darkMode ? '#C6C4C3' : '#a0a0a0',
+                fontSize: responsiveScreenFontSize(1.5),
+              }}>
               WITHDRAWAL
             </Text>
           </View>
@@ -261,7 +281,7 @@ const WalletScreen = () => {
       </View>
 
       {/* Tab section */}
-      <View style={{flexDirection: 'row'}}>
+      <View style={{flexDirection: 'row', marginTop: responsiveHeight(1.5)}}>
         <LinearGradient
           colors={
             darkMode
@@ -389,7 +409,7 @@ const styles = StyleSheet.create({
 
   incomeBtn: {
     paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingVertical: 10,
     width: '49%',
     flexDirection: 'row',
     alignItems: 'center',

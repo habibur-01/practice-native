@@ -2,9 +2,12 @@ import React, {memo} from 'react';
 import {View, Dimensions} from 'react-native';
 import Echarts from 'react-native-echarts-pro';
 import {responsiveHeight} from 'react-native-responsive-dimensions';
+import {useTheme} from '../../theme/ThemeContext';
 
 const BarChart = memo(() => {
   const screenWidth = Dimensions.get('window').width;
+  const {themeMode} = useTheme();
+  const darkMode = themeMode === 'dark' ? true : false;
 
   const barChartData = [
     29.171796, 26.835694, 35.065844, 30.418636, 30.849026, 32.541207, 36.025465,
@@ -72,8 +75,8 @@ const BarChart = memo(() => {
         barWidth: 5,
         barGap: '50%',
         itemStyle: {
-          color: '#616161',
-          borderColor: '#616161',
+          color: darkMode ? '#616161' : '#9b9999',
+          borderColor: darkMode ? '#616161' : '#9b9999',
           borderWidth: 1.5,
         },
       },
