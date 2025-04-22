@@ -32,6 +32,8 @@ import CustomDrawer from '../components/drawer/CustomDrawer';
 import Root from './Root';
 import {ThemeProvider, useTheme} from '../theme/ThemeContext';
 import ExchangeScreen from '../screen/authenticated/ExchangeScreen';
+import {Provider} from 'react-redux';
+import {store} from '../redux/store';
 
 // Create navigator
 const Stack = createNativeStackNavigator();
@@ -266,7 +268,9 @@ const AppNavigator = () => {
   return (
     <ThemeProvider>
       <NavigationContainer>
-        <Root />
+        <Provider store={store}>
+          <Root />
+        </Provider>
       </NavigationContainer>
     </ThemeProvider>
   );

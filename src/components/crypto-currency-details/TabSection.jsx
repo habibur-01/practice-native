@@ -297,6 +297,7 @@ const styles = StyleSheet.create({
     width: 80,
     borderRadius: 8,
     top: 0,
+    right: 0,
     transform: [{translateY: '50%'}],
     zIndex: 999,
   },

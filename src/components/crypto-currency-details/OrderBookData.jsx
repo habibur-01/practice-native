@@ -78,7 +78,7 @@ const OrderBookChart = () => {
                   styles.bar,
                   {
                     width: offerWidth,
-                    backgroundColor: darkMode ? '#454545' : '#d9dde0',
+                    backgroundColor: darkMode ? '#494949' : '#d9dde0',
                     position: 'absolute',
                     left: 0,
                   },

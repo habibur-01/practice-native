@@ -212,7 +212,7 @@ const WalletScreen = () => {
           <View
             style={[
               styles.arrowIcon,
-              {backgroundColor: darkMode ? '#CCCCCC' : '#fff'},
+              {backgroundColor: darkMode ? '#CCCCCC' : '#eef0f4'},
             ]}>
             <Feather name="arrow-down-left" size={20} color="#4F4F4F" />
           </View>
@@ -252,7 +252,7 @@ const WalletScreen = () => {
           <View
             style={[
               styles.arrowIcon,
-              {backgroundColor: darkMode ? '#CCCCCC' : '#fff'},
+              {backgroundColor: darkMode ? '#CCCCCC' : '#eef0f4'},
             ]}>
             <Feather name="arrow-up-right" size={20} color="#4F4F4F" />
           </View>
@@ -389,6 +389,7 @@ const WalletScreen = () => {
         </LinearGradient>
       </View>
       <ScrollView
+        showsVerticalScrollIndicator={false}
         style={{
           marginTop: 10,
           height: responsiveHeight(10),

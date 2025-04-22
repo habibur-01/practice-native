@@ -1,4 +1,4 @@
-import React, {memo, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -12,6 +12,31 @@ import OrderBookChart from '../../components/crypto-currency-details/OrderBookDa
 import BarChart2 from '../../components/crypto-currency-details/BarChart2';
 import {responsiveHeight} from 'react-native-responsive-dimensions';
 import {useTheme} from '../../theme/ThemeContext';
+const candlestickData = [
+  [0.0315, 0.0317, 0.0314, 0.0318],
+  [0.0317, 0.0318, 0.0316, 0.0319],
+  [0.0318, 0.0316, 0.0315, 0.032],
+  [0.0316, 0.0319, 0.0315, 0.0321],
+  [0.0319, 0.032, 0.0318, 0.0322],
+  [0.0312, 0.0314, 0.0311, 0.0316],
+  [0.0314, 0.0313, 0.0312, 0.0317],
+  [0.0313, 0.0311, 0.031, 0.0315],
+  [0.0311, 0.0315, 0.031, 0.0316],
+  [0.0315, 0.0317, 0.0314, 0.0318],
+  [0.0317, 0.0318, 0.0316, 0.0319],
+  [0.0318, 0.0316, 0.0315, 0.032],
+  [0.0316, 0.0319, 0.0315, 0.0321],
+  [0.0319, 0.032, 0.0318, 0.0322],
+  [0.0319, 0.032, 0.0318, 0.0322],
+  [0.0312, 0.0314, 0.0311, 0.0316],
+  [0.0314, 0.0313, 0.0312, 0.0317],
+  [0.0313, 0.0311, 0.031, 0.0315],
+  [0.0319, 0.032, 0.0318, 0.0322],
+  [0.0312, 0.0314, 0.0311, 0.0316],
+  [0.0314, 0.0313, 0.0312, 0.0317],
+  [0.0313, 0.0311, 0.031, 0.0315],
+  [0.0311, 0.0315, 0.031, 0.0316],
+];
 
 const CryptoCurrencyDetails = memo(route => {
   // const item = route.route.params.item;
@@ -20,6 +45,15 @@ const CryptoCurrencyDetails = memo(route => {
   const navigation = useNavigation();
   const {theme, themeMode} = useTheme();
   const darkMode = themeMode === 'dark' ? true : false;
+  const [data, setData] = useState(candlestickData);
+
+  useEffect(() => {
+    if (isTab === '30m') {
+      setData(candlestickData);
+    } else {
+      setData(candlestickData.slice(2, 32));
+    }
+  }, [isTab]);
 
   return (
     <View style={styles.container}>
@@ -161,7 +195,7 @@ const CryptoCurrencyDetails = memo(route => {
               paddingVertical: 10,
               flexDirection: 'row',
               justifyContent: 'space-between',
-              zIndex: 1,
+              // zIndex: 0.8,
             }}>
             <TouchableOpacity onPress={() => setActiveTab('dif')}>
               <Text
@@ -221,7 +255,7 @@ const CryptoCurrencyDetails = memo(route => {
             </TouchableOpacity>
           </View>
           <View style={{height: responsiveHeight(9)}}>
-            <CandleStickStatChart />
+            <CandleStickStatChart data={data} />
             <View style={{position: 'absolute', bottom: 0}}>
               <BarChart2 />
             </View>

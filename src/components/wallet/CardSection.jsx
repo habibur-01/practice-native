@@ -19,7 +19,7 @@ const CardSection = memo(() => {
         colors={
           darkMode
             ? ['#A9A9A7', '#A8A6A4', '#9E9C9A', '#939190']
-            : ['#9bbbfb', '#a8c8ff', '#6677fd']
+            : ['#232526', '#414345']
         }
         start={{x: 0, y: darkMode ? 0 : 1}}
         end={{x: darkMode ? 0 : 1, y: darkMode ? 1 : 0}}

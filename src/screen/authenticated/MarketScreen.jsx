@@ -620,6 +620,7 @@ const MarketScreen = memo(() => {
 
       {/* Tab container */}
       <ScrollView
+        showsVerticalScrollIndicator={false}
         style={{
           marginTop: 16,
           height: responsiveHeight(10),
