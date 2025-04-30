@@ -210,7 +210,6 @@ const AllListItem = memo(() => {
   );
 });
 const styles = StyleSheet.create({
-  listContainer: {},
   listCard: {
     paddingVertical: 10,
     borderBottomWidth: 1,

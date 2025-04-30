@@ -56,7 +56,7 @@ const data = [
 
 const AssetsList = memo(() => {
   const navigation = useNavigation();
-  const {theme, themeMode} = useTheme();
+  const {themeMode} = useTheme();
   const darkMode = themeMode === 'dark' ? true : false;
 
   return (

@@ -8,25 +8,15 @@ import 'react-native-gesture-handler';
 
 // Icons
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Feather from 'react-native-vector-icons/Feather';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Screen
 import Dashboard from '../screen/authenticated/Dashboard';
 import WalletScreen from '../screen/authenticated/WalletScreen';
-import ProfileScreen from '../screen/authenticated/ProfileScreen';
-import {
-  Image,
-  ImageBackground,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+
+import {Image, ImageBackground, StyleSheet, View} from 'react-native';
 import {BlurView} from '@react-native-community/blur';
 import MarketScreen from '../screen/authenticated/MarketScreen';
 import LinearGradient from 'react-native-linear-gradient';
-import Svg, {Polygon} from 'react-native-svg';
 import CryptoCurrencyDetails from '../screen/authenticated/CryptoCurrencyDetails';
 import CustomDrawer from '../components/drawer/CustomDrawer';
 import Root from './Root';
@@ -34,6 +24,9 @@ import {ThemeProvider, useTheme} from '../theme/ThemeContext';
 import ExchangeScreen from '../screen/authenticated/ExchangeScreen';
 import {Provider} from 'react-redux';
 import {store} from '../redux/store';
+import Pumping from '../Initial/Pumping';
+import CardScan from '../screen/authenticated/CardScan';
+import CardInfoScreen from '../screen/authenticated/CardInfoScreen';
 
 // Create navigator
 const Stack = createNativeStackNavigator();
@@ -54,6 +47,8 @@ export const DashboardNavigator = () => {
       }}>
       <Drawer.Screen name="DASHBOARD" component={Dashboard} />
       <Drawer.Screen name="CRYPTO_DETAILS" component={CryptoCurrencyDetails} />
+      <Drawer.Screen name="CARD_SCAN" component={CardScan} />
+      <Drawer.Screen name="CARD_INFO" component={CardInfoScreen} />
     </Drawer.Navigator>
   );
 };
@@ -270,6 +265,7 @@ const AppNavigator = () => {
       <NavigationContainer>
         <Provider store={store}>
           <Root />
+          <Pumping />
         </Provider>
       </NavigationContainer>
     </ThemeProvider>

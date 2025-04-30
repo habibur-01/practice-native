@@ -1,12 +1,12 @@
-import React, {memo} from 'react';
+import React, {memo, useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {useTheme} from '../../theme/ThemeContext';
 
 const TabSection = memo(({isTab, setIsTab}) => {
-  console.log('🚀 ~ TabSection ~ isTab:', isTab);
   const {themeMode} = useTheme();
   const darkMode = themeMode === 'dark' ? true : false;
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <View
@@ -14,6 +14,7 @@ const TabSection = memo(({isTab, setIsTab}) => {
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: 30,
+        zIndex: 1,
       }}>
       <TouchableOpacity
         onPress={() => setIsTab('1m')}
@@ -209,7 +210,9 @@ const TabSection = memo(({isTab, setIsTab}) => {
       </TouchableOpacity>
 
       <TouchableOpacity
-        onPress={() => setIsTab('more')}
+        onPress={() => {
+          setIsOpen(!isOpen);
+        }}
         style={{
           position: 'relative',
           paddingHorizontal: 12,
@@ -220,29 +223,29 @@ const TabSection = memo(({isTab, setIsTab}) => {
           size={20}
           color={darkMode ? '#B3B3B3' : '#3b3c3c'}
         />
-        {isTab === 'more' && (
+        {isOpen && (
           <View
             style={[
               styles.moreTabContainer,
-              {backgroundColor: darkMode ? '#373737' : '#e9ecef'},
+              {
+                backgroundColor: darkMode ? '#373737' : '#e9ecef',
+                borderColor: darkMode ? '#666666' : '#e9ecef',
+              },
             ]}>
-            <TouchableOpacity
-              onPress={() => setIsTab('1d')}
-              style={isTab === '1d' && styles.activeTab}>
+            <TouchableOpacity onPress={() => setIsTab('7d')}>
               <Text
                 style={[
                   styles.tabName,
-                  {color: darkMode ? '#B3B3B3' : '#3b3c3c'},
+                  {
+                    color: darkMode ? '#B3B3B3' : '#3b3c3c',
+                    borderBottomWidth: 1,
+                    borderColor: darkMode ? '#666666' : '#3b3c3c',
+                  },
                 ]}>
                 7D
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => setIsTab('1d')}
-              style={[
-                isTab === '1d' && styles.activeTab,
-                {position: 'relative'},
-              ]}>
+            <TouchableOpacity onPress={() => setIsTab('14d')}>
               <Text
                 style={[
                   styles.tabName,
@@ -260,7 +263,6 @@ const TabSection = memo(({isTab, setIsTab}) => {
 
 const styles = StyleSheet.create({
   tabName: {
-    // color: '#B3B3B3',
     fontSize: 14,
     borderTopRightRadius: 16,
     borderTopLeftRadius: 16,
@@ -268,7 +270,6 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   activeTab: {
-    // backgroundColor: darkMode ? '#373737' : '#e9ecef',
     borderBottomLeftRadius: 8,
     borderBottomRightRadius: 8,
   },
@@ -278,7 +279,6 @@ const styles = StyleSheet.create({
     height: 20,
     top: -10,
     right: -5,
-    // backgroundColor: darkMode ? '#373737' : '#e9ecef',
     zIndex: 1,
     borderBottomRightRadius: 20,
   },
@@ -288,7 +288,6 @@ const styles = StyleSheet.create({
     height: 20,
     top: -10,
     left: -5,
-    // backgroundColor: darkMode ? '#373737' : '#e9ecef',
     zIndex: 1,
     borderBottomLeftRadius: 20,
   },
@@ -299,6 +298,7 @@ const styles = StyleSheet.create({
     top: 0,
     right: 0,
     transform: [{translateY: '50%'}],
+    borderWidth: 1,
     zIndex: 999,
   },
 });

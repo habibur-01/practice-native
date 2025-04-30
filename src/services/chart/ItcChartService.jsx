@@ -13,12 +13,11 @@ import {
   Stochastic,
 } from 'technicalindicators';
 import {findPrevClosestDateTime} from '../../helpers/dateTime';
-import priceManager from '../../helpers/priceManager';
 
 import {getChartHistory} from '../../server/chart';
-import {getStaticSymbol} from '../../helpers/symbols';
-import store from '../../redux/store';
-import {setChartLoading} from '../../redux/features/chart/chartSlice';
+// import {getStaticSymbol} from '../../helpers/symbols';
+// import store from '../../redux/store';
+// import {setChartLoading} from '../../redux/features/chart/chartSlice';
 class ItcChartService {
   chart_ready = false;
   symbol = null;
@@ -145,7 +144,7 @@ class ItcChartService {
               },
             },
             axisLabel: {
-              margin: 8,
+              show: false,
               padding: [0, 0, 0, 0],
               fontSize: '9px',
               color: '#e3e3e3',
@@ -168,6 +167,7 @@ class ItcChartService {
             },
             splitLine: {
               show: true,
+              splitNumber: 4,
               lineStyle: {
                 color: '#d7dce0',
                 type: 'solid',
@@ -252,7 +252,6 @@ class ItcChartService {
               show: true,
               lineStyle: {
                 color: '#d7dce0',
-                // type: "dashed",
                 type: 'solid',
                 width: 0,
                 opacity: 0.1,
@@ -280,8 +279,8 @@ class ItcChartService {
             show: true,
             left: '0',
             right: '10px',
-            top: '0',
-            bottom: '0',
+            top: '10',
+            bottom: '12',
             containLabel: true,
           },
         ],
@@ -365,11 +364,12 @@ class ItcChartService {
               ],
               lineStyle: {
                 width: 1,
-                type: 'solid',
+                type: 'dashed',
               },
               label: {
                 show: true,
-                width: 80,
+                width: 100,
+                backgroundColor: '#E7E089',
                 fontWeight: 'normal',
                 fontSize: '10px',
                 padding: [4, 0, 4, 0],
@@ -622,7 +622,7 @@ class ItcChartService {
       );
       let to = Math.floor(moment().utc().valueOf() / 1000);
       let period = this.period;
-      let digits = getStaticSymbol(this.symbol)?.digits;
+      let digits = /* getStaticSymbol(this.symbol)?.digits */ 5;
       let dif = Math.abs(from - to);
       let new_from = dif * period;
       const result = await getChartHistory(
@@ -647,7 +647,7 @@ class ItcChartService {
         );
         this.last_timestamp = data[0]?.timestamp;
         this.setDataStartZoomOption(90);
-        // pull chart Dtaa
+        // pull chart Data
         // this.pulChartDataHandler();
       }
     } catch (error) {

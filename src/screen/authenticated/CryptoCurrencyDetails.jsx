@@ -1,9 +1,15 @@
 import React, {memo, useEffect, useState} from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Candlestick from '../../components/crypto-currency-details/CandleStickChart';
 import BarChart from '../../components/crypto-currency-details/BarChart';
 import CandleStickStatChart from '../../components/crypto-currency-details/CandleStickStatChart';
 import TabSection from '../../components/crypto-currency-details/TabSection';
@@ -12,6 +18,7 @@ import OrderBookChart from '../../components/crypto-currency-details/OrderBookDa
 import BarChart2 from '../../components/crypto-currency-details/BarChart2';
 import {responsiveHeight} from 'react-native-responsive-dimensions';
 import {useTheme} from '../../theme/ThemeContext';
+import Chart from '../../components/crypto-currency-details/Chart';
 const candlestickData = [
   [0.0315, 0.0317, 0.0314, 0.0318],
   [0.0317, 0.0318, 0.0316, 0.0319],
@@ -36,16 +43,26 @@ const candlestickData = [
   [0.0314, 0.0313, 0.0312, 0.0317],
   [0.0313, 0.0311, 0.031, 0.0315],
   [0.0311, 0.0315, 0.031, 0.0316],
+  [0.0311, 0.0315, 0.031, 0.0316],
 ];
 
 const CryptoCurrencyDetails = memo(route => {
-  // const item = route.route.params.item;
+  const item = route.route.params.item;
+  console.log('🚀 ~ item:', item);
   const [isTab, setIsTab] = useState('30m');
   const [isactiveTab, setActiveTab] = useState('dea');
   const navigation = useNavigation();
-  const {theme, themeMode} = useTheme();
+  const {themeMode} = useTheme();
   const darkMode = themeMode === 'dark' ? true : false;
   const [data, setData] = useState(candlestickData);
+  const [chartHeight, setChartHeight] = useState(responsiveHeight(17));
+  const [chartWidth, setChartWidth] = useState();
+  const {height, width} = useWindowDimensions();
+
+  useEffect(() => {
+    setChartHeight(responsiveHeight(22));
+    setChartWidth(width - 20);
+  }, [height, width]);
 
   useEffect(() => {
     if (isTab === '30m') {
@@ -128,11 +145,7 @@ const CryptoCurrencyDetails = memo(route => {
           }}>
           <View style={styles.cryptoInfo}>
             <Image
-              source={
-                darkMode
-                  ? require('../../assets/icon/ton.png')
-                  : require('../../assets/icon/ton-dark.png')
-              }
+              source={darkMode ? item.lightIcon : item.darkIcon}
               resizeMode="cover"
               style={{width: 34, height: 34}}
             />
@@ -158,7 +171,7 @@ const CryptoCurrencyDetails = memo(route => {
                   color: darkMode ? '#a2a2a5' : '#6b6b6b',
                   fontSize: 12,
                 }}>
-                TONCOIN PRICE
+                {item?.name} PRICE
               </Text>
             </View>
           </View>
@@ -173,13 +186,17 @@ const CryptoCurrencyDetails = memo(route => {
             </Text>
           </View>
         </View>
+
+        {/* Live Chart section */}
         <View style={{marginTop: 5}}>
-          <Candlestick />
+          <Chart chartHeight={chartHeight} chartWidth={chartWidth} />
         </View>
         <View style={{marginTop: 10}}>
           <BarChart />
         </View>
       </LinearGradient>
+
+      {/* 2nd part section */}
       <LinearGradient
         colors={
           darkMode ? ['#4E4E4E', '#444444', '#262626'] : ['#f6f8fa', '#e9ecef']
@@ -195,7 +212,6 @@ const CryptoCurrencyDetails = memo(route => {
               paddingVertical: 10,
               flexDirection: 'row',
               justifyContent: 'space-between',
-              // zIndex: 0.8,
             }}>
             <TouchableOpacity onPress={() => setActiveTab('dif')}>
               <Text
@@ -256,7 +272,7 @@ const CryptoCurrencyDetails = memo(route => {
           </View>
           <View style={{height: responsiveHeight(9)}}>
             <CandleStickStatChart data={data} />
-            <View style={{position: 'absolute', bottom: 0}}>
+            <View style={{position: 'absolute', bottom: 0, zIndex: 1}}>
               <BarChart2 />
             </View>
           </View>
@@ -304,7 +320,6 @@ const styles = StyleSheet.create({
   },
   topSectionTitle: {
     fontSize: 22,
-    // color: '#fff',
   },
   cryptoInfo: {
     flexDirection: 'row',

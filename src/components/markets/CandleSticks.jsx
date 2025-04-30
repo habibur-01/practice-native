@@ -30,7 +30,7 @@ const Candlestick = ({width = 134, height = 60}) => {
       <Svg height={height} width={width}>
         {data.map((item, index) => {
           const x = index * spacing;
-          const color = item.close >= item.open ? '#E7E089' : '#888';
+          const color = item.close >= item.open ? '#D9D4B3' : '#929292';
 
           return (
             <React.Fragment key={index}>

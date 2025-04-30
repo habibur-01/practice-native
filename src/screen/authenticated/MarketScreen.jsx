@@ -11,27 +11,26 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {
   responsiveFontSize,
   responsiveHeight,
-  responsiveWidth,
 } from 'react-native-responsive-dimensions';
-import Candlestick from '../../components/markets/CandleSticks';
 import AssetsList from '../../components/markets/AssetsList';
 import TradableList from '../../components/markets/TradableList';
 import NewListed from '../../components/markets/NewListed';
 import {useTheme} from '../../theme/ThemeContext';
+import CardSection from '../../components/markets/CardSection';
+import MarketTabSection from '../../components/markets/MarketTabSection';
 
 const MarketScreen = memo(() => {
   const [expandGainers, setExpandGainers] = useState(false);
   const [expandMore, setExpandMore] = useState(false);
   const [isTabActive, setIsTabActive] = useState('assets');
   const navigation = useNavigation();
-  const {theme, themeMode} = useTheme();
+  const {themeMode} = useTheme();
   const darkMode = themeMode === 'dark' ? true : false;
   return (
     <LinearGradient
@@ -104,332 +103,16 @@ const MarketScreen = memo(() => {
           </TouchableOpacity>
         </LinearGradient>
       </View>
-      <View>
-        <View
-          style={{
-            marginTop: 30,
-            marginBottom: 16,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}>
-          <View>
-            <Text
-              style={{fontSize: 20, color: darkMode ? '#F6F6F6' : '#010101'}}>
-              ASSETS
-            </Text>
-          </View>
-          <View style={{alignSelf: 'flex-end'}}>
-            <TouchableOpacity
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                position: 'relative',
-              }}
-              onPress={() => setExpandGainers(!expandGainers)}>
-              <Text
-                style={{color: darkMode ? '#E0E0E0' : '#3f3b3b', fontSize: 11}}>
-                GAINERS
-              </Text>
-              <MaterialIcons
-                name="keyboard-arrow-down"
-                size={16}
-                color={darkMode ? '#DADADA' : '#3f3b3b'}
-              />
-            </TouchableOpacity>
-            {expandGainers && (
-              <View
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  right: 10,
-                  transform: 'translateY(30%)',
-                  zIndex: 1,
-                  width: 100,
-                  backgroundColor: darkMode ? '#484848' : '#EFF3F4',
-                  borderWidth: 1,
-                  borderColor: darkMode ? '#7A7A7A' : '#dee1e8',
-                  padding: 10,
-                  borderRadius: 12,
-                }}>
-                <TouchableOpacity>
-                  <Text style={{color: darkMode ? '#F6F6F6' : '#3f3b3b'}}>
-                    All
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            )}
-          </View>
-        </View>
 
-        {/* Card section */}
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.cardWrapper} // Optional spacing
-        >
-          <LinearGradient
-            colors={
-              darkMode
-                ? ['#666666', '#5F5F5F', '#3d3c3c']
-                : ['#ffffff', '#ffffff', '#ffffff']
-            }
-            start={{x: 0, y: 0}}
-            end={{x: 0, y: 1}}
-            style={{
-              width: responsiveWidth(43),
-              height: responsiveHeight(18),
-              borderRadius: 20,
-              borderWidth: 1,
-              borderColor: darkMode ? '#7B7B7B' : '#e8e9ea',
-              paddingHorizontal: 20,
-              paddingTop: 14,
-              overflow: 'hidden',
-            }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: 10,
-              }}>
-              <Image
-                source={
-                  darkMode
-                    ? require('../../assets/icon/stellar.png')
-                    : require('../../assets/icon/stellar-black.png')
-                }
-                resizeMode="cover"
-                style={{width: 36, height: 36}}
-              />
-              <View>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    color: darkMode ? '#E8E8E8' : '#010101',
-                    fontWeight: 'bold',
-                  }}>
-                  XLM
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    color: darkMode ? '#B4B4B4' : '#3f3b3b',
-                  }}>
-                  STELLAR
-                </Text>
-              </View>
-            </View>
-            <View style={{marginVertical: 10}}>
-              <Candlestick width={134} height={60} />
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}>
-              <View>
-                <Text
-                  style={{
-                    color: darkMode ? '#F6F6F6' : '#010101',
-                    fontSize: 14,
-                  }}>
-                  <FontAwesome6
-                    name="euro-sign"
-                    size={12}
-                    color={darkMode ? '#F6F6F6' : '#010101'}
-                  />
-                  0.16
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}>
-                <Text
-                  style={{
-                    color: darkMode ? '#F6F6F6' : '#010101',
-                    fontSize: 14,
-                  }}>
-                  +6.49%
-                </Text>
-              </View>
-            </View>
-          </LinearGradient>
-          <LinearGradient
-            colors={
-              darkMode
-                ? ['#666666', '#5F5F5F', '#3d3c3c']
-                : ['#ffffff', '#ffffff', '#ffffff']
-            }
-            start={{x: 0, y: 0}}
-            end={{x: 0, y: 1}}
-            style={{
-              width: responsiveWidth(43),
-              height: responsiveHeight(18),
-              borderRadius: 20,
-              borderWidth: 1,
-              borderColor: darkMode ? '#7B7B7B' : '#e8e9ea',
-              paddingHorizontal: 20,
-              paddingTop: 14,
-              overflow: 'hidden',
-            }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: 10,
-              }}>
-              <Image
-                source={
-                  darkMode
-                    ? require('../../assets/icon/safepal.png')
-                    : require('../../assets/icon/sfp-light.png')
-                }
-                resizeMode="cover"
-                style={{width: 36, height: 36}}
-              />
-              <View>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    color: darkMode ? '#E8E8E8' : '#010101',
-                    fontWeight: 'bold',
-                  }}>
-                  SFP
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    color: darkMode ? '#B4B4B4' : '#3f3b3b',
-                  }}>
-                  SAFEPAL
-                </Text>
-              </View>
-            </View>
-            <View style={{marginVertical: 10}}>
-              <Candlestick width={134} height={60} />
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}>
-              <View>
-                <Text
-                  style={{
-                    color: darkMode ? '#F6F6F6' : '#010101',
-                    fontSize: 14,
-                  }}>
-                  <FontAwesome6
-                    name="euro-sign"
-                    size={12}
-                    color={darkMode ? '#F6F6F6' : '#010101'}
-                  />
-                  0.72
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}>
-                <Text
-                  style={{
-                    color: darkMode ? '#F6F6F6' : '#010101',
-                    fontSize: 14,
-                  }}>
-                  +0.11%
-                </Text>
-              </View>
-            </View>
-          </LinearGradient>
-          <LinearGradient
-            colors={
-              darkMode
-                ? ['#666666', '#5F5F5F', '#3d3c3c']
-                : ['#ffffff', '#ffffff', '#ffffff']
-            }
-            start={{x: 0, y: 0}}
-            end={{x: 0, y: 1}}
-            style={{
-              width: responsiveWidth(43),
-              height: responsiveHeight(18),
-              borderRadius: 20,
-              borderWidth: 1,
-              borderColor: darkMode ? '#7B7B7B' : '#e8e9ea',
-              paddingHorizontal: 20,
-              paddingTop: 14,
-              overflow: 'hidden',
-            }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: 10,
-              }}>
-              <Image
-                source={require('../../assets/icon/stellar.png')}
-                resizeMode="cover"
-                style={{width: 36, height: 36}}
-              />
-              <View>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    color: darkMode ? '#E8E8E8' : '#010101',
-                    fontWeight: 'bold',
-                  }}>
-                  XLM
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    color: darkMode ? '#B4B4B4' : '#3f3b3b',
-                  }}>
-                  STELLAR
-                </Text>
-              </View>
-            </View>
-            <View style={{marginVertical: 10}}>
-              <Candlestick width={134} height={60} />
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}>
-              <View>
-                <Text
-                  style={{
-                    color: darkMode ? '#F6F6F6' : '#010101',
-                    fontSize: 14,
-                  }}>
-                  <FontAwesome6
-                    name="euro-sign"
-                    size={12}
-                    color={darkMode ? '#F6F6F6' : '#010101'}
-                  />
-                  0.72
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}>
-                <Text
-                  style={{
-                    color: darkMode ? '#F6F6F6' : '#010101',
-                    fontSize: 14,
-                  }}>
-                  +0.11%
-                </Text>
-              </View>
-            </View>
-          </LinearGradient>
-        </ScrollView>
+      {/* Asset section start */}
+      <View>
+        <CardSection
+          expandGainers={expandGainers}
+          setExpandGainers={setExpandGainers}
+        />
       </View>
+
+      {/* Market Section Start*/}
       <View>
         <View
           style={{
@@ -477,19 +160,19 @@ const MarketScreen = memo(() => {
                   backgroundColor: darkMode ? '#484848' : '#EFF3F4',
                   borderWidth: 1,
                   borderColor: darkMode ? '#7A7A7A' : '#dee1e8',
-                  padding: 10,
+                  paddingHorizontal: 10,
                   borderRadius: 12,
                 }}>
                 <TouchableOpacity
                   style={{
                     paddingVertical: 10,
-                    borderBottomWidth: 1,
-                    borderColor: darkMode ? '#7a7a7a' : '#dee1e8',
+                    borderBottomWidth: 0.8,
+                    borderColor: darkMode ? '#6b6b6b' : '#dee1e8',
                   }}>
                   <Text
                     style={{
                       color: darkMode ? '#F6F6F6' : '#3f3b3b',
-                      fontSize: 12,
+                      fontSize: 11,
                     }}>
                     LAST MONTH
                   </Text>
@@ -498,7 +181,7 @@ const MarketScreen = memo(() => {
                   <Text
                     style={{
                       color: darkMode ? '#F6F6F6' : '#3f3b3b',
-                      fontSize: 12,
+                      fontSize: 11,
                     }}>
                     LAST 3 MOTNH
                   </Text>
@@ -510,115 +193,11 @@ const MarketScreen = memo(() => {
       </View>
 
       {/* Tab section */}
-      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-        <LinearGradient
-          colors={
-            darkMode
-              ? isTabActive === 'assets'
-                ? ['#5A5A5A', '#6D6D6D', '#6F6F6F']
-                : ['transparent', 'transparent', 'transparent']
-              : isTabActive === 'assets'
-              ? ['#ffffff', '#fff', '#fff']
-              : ['transparent', 'transparent', 'transparent']
-          }
-          start={{x: 0, y: 0}}
-          end={{x: 1, y: 0}}
-          style={[
-            styles.tab,
-            {
-              borderWidth: isTabActive === 'assets' ? 1 : 0,
-              borderColor: darkMode ? '#7B7B7B' : '#d4d4d4',
-            },
-          ]}>
-          <TouchableOpacity onPress={() => setIsTabActive('assets')}>
-            <Text
-              style={{
-                color: darkMode
-                  ? isTabActive === 'assets'
-                    ? '#fff'
-                    : '#E0E0E0'
-                  : isTabActive === 'assets'
-                  ? '#010101'
-                  : '#353739',
-                fontSize: responsiveFontSize(1.7),
-              }}>
-              ASSETS
-            </Text>
-          </TouchableOpacity>
-        </LinearGradient>
-        <LinearGradient
-          colors={
-            darkMode
-              ? isTabActive === 'tradable'
-                ? ['#5A5A5A', '#6D6D6D', '#6F6F6F']
-                : ['transparent', 'transparent', 'transparent']
-              : isTabActive === 'tradable'
-              ? ['#ffffff', '#fff', '#fff']
-              : ['transparent', 'transparent', 'transparent']
-          }
-          start={{x: 0, y: 0}}
-          end={{x: 1, y: 0}}
-          style={[
-            styles.tab,
-            {
-              borderWidth: isTabActive === 'tradable' ? 1 : 0,
-              borderColor: darkMode ? '#7B7B7B' : '#d4d4d4',
-            },
-          ]}>
-          <TouchableOpacity onPress={() => setIsTabActive('tradable')}>
-            <Text
-              style={{
-                color: darkMode
-                  ? isTabActive === 'tradable'
-                    ? '#fff'
-                    : '#E0E0E0'
-                  : isTabActive === 'tradable'
-                  ? '#010101'
-                  : '#353739',
-                fontSize: responsiveFontSize(1.7),
-              }}>
-              TRADABLE
-            </Text>
-          </TouchableOpacity>
-        </LinearGradient>
-        <LinearGradient
-          colors={
-            darkMode
-              ? isTabActive === 'new'
-                ? ['#5A5A5A', '#6D6D6D', '#6F6F6F']
-                : ['transparent', 'transparent', 'transparent']
-              : isTabActive === 'new'
-              ? ['#ffffff', '#fff', '#fff']
-              : ['transparent', 'transparent', 'transparent']
-          }
-          start={{x: 0, y: 0}}
-          end={{x: 1, y: 0}}
-          style={[
-            styles.tab,
-            {
-              borderWidth: isTabActive === 'new' ? 1 : 0,
-              borderColor: darkMode ? '#7B7B7B' : '#d4d4d4',
-            },
-          ]}>
-          <TouchableOpacity onPress={() => setIsTabActive('new')}>
-            <Text
-              style={{
-                color: darkMode
-                  ? isTabActive === 'new'
-                    ? '#fff'
-                    : '#E0E0E0'
-                  : isTabActive === 'new'
-                  ? '#010101'
-                  : '#353739',
-                fontSize: responsiveFontSize(1.7),
-              }}>
-              NEWLY LISTED
-            </Text>
-          </TouchableOpacity>
-        </LinearGradient>
-      </View>
-
-      {/* Tab container */}
+      <MarketTabSection
+        setIsTabActive={setIsTabActive}
+        isTabActive={isTabActive}
+      />
+      {/* Tab content container */}
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{
@@ -643,10 +222,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     letterSpacing: 3,
   },
-  cardWrapper: {
-    flexDirection: 'row',
-    gap: 5,
-  },
 
   tab: {
     paddingVertical: 8,
@@ -654,8 +229,6 @@ const styles = StyleSheet.create({
     borderRadius: 22,
     justifyContent: 'center',
     alignItems: 'center',
-    // borderWidth: 1,
-    // borderColor: '#7B7B7B',
   },
 
   scannerBtn: {

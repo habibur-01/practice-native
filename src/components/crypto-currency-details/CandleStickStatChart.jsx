@@ -33,19 +33,21 @@ const CandleStickStatChart = memo(({data}) => {
   //   [0.0311, 0.0315, 0.031, 0.0316],
   // ];
 
-  // Updated xAxisData to have 30 points
+  // Updated xAxisData to have 24 points
   const xAxisData = Array.from({length: 24}, (_, i) => `15: ${i + 1}`);
 
   // Candlestick chart options
   const option = {
     backgroundColor: 'transparent',
     tooltip: {
+      show: false,
       trigger: 'axis',
       axisPointer: {type: 'cross'},
+      confine: true,
     },
     grid: {
-      left: 0,
-      right: 0,
+      left: 5,
+      right: 20,
       top: 0,
       bottom: 0,
       containLabel: false,
@@ -53,21 +55,26 @@ const CandleStickStatChart = memo(({data}) => {
     xAxis: {
       type: 'category',
       data: xAxisData,
+      boundaryGap: true,
       axisLine: {show: false},
       axisTick: {show: false},
       axisLabel: {show: false},
+      min: 0,
+      max: data.length > 20 ? 20 : data.length,
     },
+    dataZoom: [
+      {
+        type: 'inside',
+        xAxisIndex: 0,
+        start: 0,
+        end: data.length > 20 ? (20 / data.length) * 100 : 100,
+      },
+    ],
     yAxis: {
       type: 'value',
       scale: true,
       splitLine: {show: false},
       axisLabel: {show: false},
-    },
-    tooltip: {
-      show: false,
-      trigger: 'axis',
-      axisPointer: {type: 'cross'},
-      confine: true,
     },
     series: [
       {
@@ -81,6 +88,7 @@ const CandleStickStatChart = memo(({data}) => {
           borderColor0: '#92928E',
           wickColor: '#F8E2B3',
         },
+        barMaxWidth: 10, // Force consistent width
       },
     ],
   };

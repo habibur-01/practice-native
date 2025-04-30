@@ -3,7 +3,7 @@ export const lightColors = {
   backgroundLight: '#EFF3F4',
 
   // Text color
-  text: '#1F2937 ',
+  PrimaryText: '#1F2937 ',
 
   tabBarBackground: '#F0F0F0',
   tabIconInactive: '#B4B4B4',
@@ -14,7 +14,15 @@ export const lightColors = {
 export const darkColors = {
   background: '#000000',
   backgroundLight: '#717171',
-  text: '#FFFFFF',
+
+  // text color
+  primaryText: '#FFFFFF',
+  textLight: '#F6F6F6',
+  textLightGray: '#E8E8E8',
+  textGray: '#B4B4B4',
+  textDarkGray: '#909090',
+  textDark: '#a0a0a0',
+
   tabBarBackground: '#2F2F2F',
   tabIconInactive: '#B4B4B4',
   tabIconActive: '#FFFFFF',

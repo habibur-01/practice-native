@@ -18,7 +18,11 @@ const BarChart2 = memo(() => {
   ];
 
   // Create matching xAxis labels
-  const xAxisData = barChartData.map((_, i) => `${i + 1}:00`);
+  const xAxisData = Array.from({length: 30}, (_, i) => {
+    const date = new Date();
+    date.setMinutes(date.getMinutes() + i); // advance by i minutes
+    return date.toTimeString().slice(0, 5); // "HH:MM" format
+  });
 
   const option = {
     backgroundColor: 'transparent',

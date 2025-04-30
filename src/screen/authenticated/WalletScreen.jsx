@@ -11,7 +11,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
-import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import PurchaseList from '../../components/wallet/PurchaseList';
 import AllListItem from '../../components/wallet/AllListItem';
@@ -22,16 +21,20 @@ import {
   responsiveScreenFontSize,
 } from 'react-native-responsive-dimensions';
 import {useTheme} from '../../theme/ThemeContext';
-import CardSection from '../../components/wallet/CardSection';
-// import {responsiveHeight} from 'react-native-responsive-dimensions';
+import Card from '../../components/wallet/Card';
+import WalletTabSection from '../../components/wallet/WalletTabSection';
+import {cardData} from '../../data/data';
+import {useSharedValue} from 'react-native-reanimated';
 
-const WalletScreen = () => {
-  const navigation = useNavigation();
+const WalletScreen = ({navigation}) => {
   const [activeTab, setActiveTab] = useState('cards');
   const [isTabActive, setIsTabActive] = useState('all');
   const {themeMode, theme} = useTheme();
   const darkMode = themeMode === 'dark' ? true : false;
-  console.log('🚀 ~ WalletScreen ~ darkMode:', darkMode);
+  const [newData, setNewData] = useState([...cardData, ...cardData]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const animatedValue = useSharedValue(0);
+  const MAX = 3;
 
   return (
     <LinearGradient
@@ -45,7 +48,7 @@ const WalletScreen = () => {
       style={styles.container}>
       <View style={styles.topSection}>
         <TouchableOpacity
-          onPress={() => console.log('pressed')}
+          onPress={() => navigation.navigate('CARD_SCAN')}
           style={[
             styles.scannerBtn,
             {
@@ -187,8 +190,26 @@ const WalletScreen = () => {
       </View>
 
       {/* Card section */}
-      <View>
-        <CardSection />
+      <View style={{height: responsiveHeight(24), marginTop: 10}}>
+        {newData.map((item, index) => {
+          if (index > currentIndex + MAX || index < currentIndex) {
+            return null;
+          }
+          return (
+            <Card
+              newData={newData}
+              setNewData={setNewData}
+              maxVisibleItems={MAX}
+              item={item}
+              index={index}
+              dataLength={newData.length}
+              animatedValue={animatedValue}
+              currentIndex={currentIndex}
+              setCurrentIndex={setCurrentIndex}
+              key={index}
+            />
+          );
+        })}
       </View>
 
       {/* Income & Withdrawal Tab */}
@@ -281,119 +302,16 @@ const WalletScreen = () => {
       </View>
 
       {/* Tab section */}
-      <View style={{flexDirection: 'row', marginTop: responsiveHeight(1.5)}}>
-        <LinearGradient
-          colors={
-            darkMode
-              ? isTabActive === 'all'
-                ? ['#4E4E4E', '#5B5B5B', '#656565']
-                : ['transparent', 'transparent', 'transparent']
-              : isTabActive === 'all'
-              ? ['#ffffff', '#ffffff']
-              : ['transparent', 'transparent']
-          }
-          start={{x: 0, y: 0}}
-          end={{x: 1, y: 0}}
-          style={[
-            styles.tab,
-            {
-              borderWidth: isTabActive === 'all' ? 1 : 0,
-              borderColor: darkMode ? '#7B7B7B' : '#d4d4d4',
-            },
-          ]}>
-          <TouchableOpacity onPress={() => setIsTabActive('all')}>
-            <Text
-              style={{
-                color: darkMode
-                  ? isTabActive === 'all'
-                    ? '#fff'
-                    : '#E0E0E0'
-                  : isTabActive === 'all'
-                  ? '#010101'
-                  : '#353739',
-                fontSize: responsiveFontSize(1.6),
-              }}>
-              ALL
-            </Text>
-          </TouchableOpacity>
-        </LinearGradient>
-        <LinearGradient
-          colors={
-            darkMode
-              ? isTabActive === 'purchases'
-                ? ['#4E4E4E', '#5B5B5B', '#656565']
-                : ['transparent', 'transparent', 'transparent']
-              : isTabActive === 'purchases'
-              ? ['#ffffff', '#ffffff']
-              : ['transparent', 'transparent']
-          }
-          start={{x: 0, y: 0}}
-          end={{x: 1, y: 0}}
-          style={[
-            styles.tab,
-            {
-              borderWidth: isTabActive === 'purchases' ? 1 : 0,
-              borderColor: darkMode ? '#7B7B7B' : '#d4d4d4',
-            },
-          ]}>
-          <TouchableOpacity onPress={() => setIsTabActive('purchases')}>
-            <Text
-              style={{
-                color: darkMode
-                  ? isTabActive === 'purchases'
-                    ? '#fff'
-                    : '#E0E0E0'
-                  : isTabActive === 'purchases'
-                  ? '#010101'
-                  : '#353739',
-                fontSize: responsiveFontSize(1.6),
-              }}>
-              PURCHASES
-            </Text>
-          </TouchableOpacity>
-        </LinearGradient>
-        <LinearGradient
-          colors={
-            darkMode
-              ? isTabActive === 'deposit'
-                ? ['#4E4E4E', '#5B5B5B', '#656565']
-                : ['transparent', 'transparent', 'transparent']
-              : isTabActive === 'deposit'
-              ? ['#ffffff', '#ffffff']
-              : ['transparent', 'transparent']
-          }
-          start={{x: 0, y: 0}}
-          end={{x: 1, y: 0}}
-          style={[
-            styles.tab,
-            {
-              borderWidth: isTabActive === 'deposit' ? 1 : 0,
-              borderColor: darkMode ? '#7B7B7B' : '#d4d4d4',
-            },
-          ]}>
-          <TouchableOpacity onPress={() => setIsTabActive('deposit')}>
-            <Text
-              style={{
-                color: darkMode
-                  ? isTabActive === 'deposit'
-                    ? '#fff'
-                    : '#E0E0E0'
-                  : isTabActive === 'deposit'
-                  ? '#010101'
-                  : '#353739',
-                fontSize: responsiveFontSize(1.6),
-              }}>
-              DEPOSIT
-            </Text>
-          </TouchableOpacity>
-        </LinearGradient>
-      </View>
+      <WalletTabSection
+        isTabActive={isTabActive}
+        setIsTabActive={setIsTabActive}
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{
           marginTop: 10,
           height: responsiveHeight(10),
-          overflow: 'hidden',
+          // overflow: 'hidden',
         }}>
         {isTabActive === 'all' && <AllListItem />}
         {isTabActive === 'purchases' && <PurchaseList />}
@@ -497,17 +415,19 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   availabeText: {
-    // color: '#E0E0E0',
     fontSize: 12,
     marginTop: 5,
   },
-  tab: {
-    paddingVertical: 8,
-    paddingHorizontal: 22,
-    borderRadius: 22,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+  // cardContainer: {
+  //   position: 'relative',
+  //   flex: 1,
+  //   justifyContent: 'center',
+  //   height: responsiveHeight(100),
+  //   borderWidth: 1,
+  //   borderColor: '#E0E0E0',
+  //   // marginTop: 30,
+  //   // alignItems: 'center',
+  // },
 });
 
 export default WalletScreen;
