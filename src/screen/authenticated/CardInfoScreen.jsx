@@ -1,11 +1,12 @@
 import React, {memo} from 'react';
-import {Text, View} from 'react-native';
+import {Image, Text, View} from 'react-native';
 
-const CardInfoScreen = memo(({route}) => {
-  console.log(route);
+const CardInfoScreen = memo(({image}) => {
+  console.log(image);
   return (
     <View>
       <Text style={{color: 'red'}}>Card Info</Text>
+      {/* <Image source={{uri: route.params.image}} /> */}
     </View>
   );
 });
